@@ -14,7 +14,6 @@ from .models import User, Issue, Message, Unit
 
 
 def index(request):
-    if request.method == "GET":
         if request.user.is_authenticated:
             if request.user.manager:
                 try:
@@ -36,8 +35,6 @@ def index(request):
                 })
         else:
             return render(request, 'property/login.html')
-    else:
-        return render(request, 'property/error.html')
 
 @login_required
 def add_property(request):
@@ -53,12 +50,15 @@ def add_property(request):
                 "message": "Invalid Property"
             })
         if u.address == "":
-            return render(request, "property/index.html", {
+            return render(request, "property/add_property.html", {
                 "add_message": "Must provide an address"
             })
 
         u.save()
         return HttpResponseRedirect(reverse("index"))
+    else:
+        return render(request, "property/add_property.html")
+
 
 def unit(request, unit_id):
     if request.method == "GET":

@@ -29,9 +29,24 @@
 
     {% if user.manager %}
         
-        {% if units %}
-            
+        {% if not units %}
+
+            <br><br>
+            <p> You have not registered any properties yet. </p>
+            <p> Let's get started! </p>
+            <br><br>
+
+            <div class="add-property-link">
+                <a href="{% url 'add_property' %}">Add Property</a>
+            </div>
+        
+        {% else %}
+
             <h1>My Properties:</h1>
+
+            <div class="add-property-link">
+                <a href="{% url 'add_property' %}">Add Property</a>
+            </div>
 
             <div class="list-container">
             {% for unit in units %}
@@ -43,29 +58,9 @@
             {% endfor %}
             </div>
 
-        {% else %}
-            <br><br>
-            <p> You have not registered any properties yet. </p>
-            <p> Let's get started! </p>
-            <br><br>
         {% endif %}
 
-        <h1>Add Property</h1>
 
-        {% if message %}
-            <div class="alert alert-info" role="alert" >{{ add_message }}</div>
-        {% endif %}
-
-        <div class="add_property">
-            <form action="{% url 'add_property' %}" method="post">
-                {% csrf_token %}
-                <input id="add_address" name="address" autocomplete=off type=text placeholder="Address">
-                <br><br>
-                <input id="add_image" name="image" autocomplete=off type=text placeholder="Image URL (optional)">
-                <br><br>
-                <input name="submit" type=submit value="Add Property">
-            </form>
-        </div>
 
     {% endif %}
 

@@ -1,0 +1,30 @@
+{% extends "property/layout.html" %}
+
+{% block body %}
+
+    {% if user.manager %}
+
+
+        <h1>Add Property</h1>
+
+        {% if add_message %}
+            <br><br>
+            <div style="width: 400px; margin: auto" class="alert alert-info" role="alert">{{ add_message }}</div>
+        {% endif %}
+
+        <div class="add_property">
+            <form action="{% url 'add_property' %}" method="post">
+                {% csrf_token %}
+                <input id="add_address" name="address" autocomplete=off type=text placeholder="Address">
+                <br><br>
+                <input id="add_image" name="image" autocomplete=off type=text placeholder="Image URL (optional)">
+                <br><br>
+                <input name="submit" type=submit value="Add Property">
+            </form>
+        </div>
+
+    {% else %}
+            You don't have permission to see this unit. Sorry!
+    {% endif %}
+
+{% endblock %}

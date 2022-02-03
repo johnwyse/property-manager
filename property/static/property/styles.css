@@ -9,6 +9,11 @@ body {
     text-decoration: none;
 }
 
+.add-property-link > a {
+    color: white;
+    text-decoration: none;
+}
+
 .body {
     padding: 3rem;
     text-align: center;
@@ -37,7 +42,6 @@ h1 {
 
 .list-container{
     padding: 2rem;
-    margin: 2rem;
 }
 
 .listed-item {
@@ -67,6 +71,24 @@ h1 {
 }
 
 .listed-item-link:hover {
+    box-shadow: white 5px 5px;
+    cursor: pointer;
+}
+
+.add-property-link {
+    padding: 0.5rem;
+    margin: auto;
+    width: 20%;
+    min-width: 200px;
+    margin-top: 2rem;
+    text-align: center;
+    border: white solid 2px;
+    background-color: rgb(103, 149, 235);
+    color: white;
+    display: block;
+}
+
+.add-property-link:hover {
     box-shadow: white 5px 5px;
     cursor: pointer;
 }
