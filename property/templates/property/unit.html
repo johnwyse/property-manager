@@ -1,0 +1,11 @@
+{% extends "property/layout.html" %}
+
+{% block body %}
+
+{% if user == unit.manager %}
+    This is the page for {{unit}}
+{% else %}
+    You don't have permission to see this unit. Sorry!
+{% endif %}
+
+{% endblock %}

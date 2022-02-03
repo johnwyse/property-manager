@@ -60,6 +60,14 @@ def add_property(request):
         u.save()
         return HttpResponseRedirect(reverse("index"))
 
+def unit(request, unit_id):
+    if request.method == "GET":
+        unit = Unit.objects.get(id=unit_id)
+        return render(request, 'property/unit.html', {
+            "unit": unit
+        })
+
+
 def messages(request):
     if request.method == "GET":
         return render(request, 'property/messages.html')
@@ -114,6 +122,8 @@ def register(request):
     if request.method == "POST":
         username = request.POST["username"]
         email = request.POST["email"]
+        first_name = request.POST["first_name"]
+        last_name = request.POST["last_name"]
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         user_type = request.POST["user_type"]
@@ -125,9 +135,9 @@ def register(request):
             tenant = False
             manager = True
         
-        if username == "" or email == "" or password == "":
+        if username == "" or first_name == "" or last_name == "" or email == "" or password == "":
             return render(request, "property/register.html", {
-                "message": "Must enter username, email, and password."
+                "message": "Must enter username, email, full name, and password."
             })    
 
         # Ensure password matches confirmation
@@ -141,6 +151,8 @@ def register(request):
             user = User.objects.create_user(username, email, password)
             user.tenant = tenant
             user.manager = manager
+            user.first_name = first_name
+            user.last_name = last_name
             user.save()
         except IntegrityError:
             return render(request, "property/register.html", {

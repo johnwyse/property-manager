@@ -10,7 +10,8 @@ urlpatterns = [
     path("messages", views.messages, name="messages"),
     path("issues", views.issues, name="issues"),
     path("profile", views.profile, name="profile"),
-    path("add_property", views.add_property, name="add_property")
+    path("add_property", views.add_property, name="add_property"),
+    path("unit/<int:unit_id>", views.unit, name="unit")
 
 
     # API Routes

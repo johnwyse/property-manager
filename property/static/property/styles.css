@@ -4,6 +4,11 @@ body {
     font-family: 'Yusei Magic', sans-serif;
 }
 
+.listed-item-link > a {
+    color: white;
+    text-decoration: none;
+}
+
 .body {
     padding: 3rem;
     text-align: center;
@@ -48,13 +53,26 @@ h1 {
     display: block;
 }
 
-.listed-item:hover {
+.listed-item-link {
+    padding: 1rem;
+    margin: auto;
+    width: 40%;
+    min-width: 300px;
+    margin-bottom: 2rem;
+    text-align: center;
+    border: white solid 2px;
+    background-color: rgb(60, 108, 196);
+    color: white;
+    display: block;
+}
+
+.listed-item-link:hover {
     box-shadow: white 5px 5px;
     cursor: pointer;
 }
 
 .add_property {
-    padding: 1rem;
+    padding-top: 2rem;
     margin: auto;
 }
 

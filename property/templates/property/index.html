@@ -3,13 +3,14 @@
 {% block body %}
 
     {% if user.tenant %}
-        <h1>This is the homepage for a tenant who is signed in.</h1>
+        <h1>Hello, {{user}}!</h1>
 
         <div class="list-container">
         {% if my_unit %}
 
         <div class="listed-item">
-            <p> You live at {{my_unit}} </p>
+            <p>{{my_unit}}</p>
+            <p>Property Manager: {{my_unit.manager.first_name}} {{my_unit.manager.last_name}}</p>
         </div>
         
 
@@ -32,8 +33,8 @@
             <div class="list-container">
             {% for unit in units %}
 
-                <div class="listed-item">
-                    {{unit}}
+                <div class="listed-item-link">
+                    <a href="{% url 'unit' unit.id %}">{{unit}}</a>
                 </div>
                 
             {% endfor %}
