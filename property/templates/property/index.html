@@ -1,0 +1,53 @@
+{% extends "property/layout.html" %}
+
+{% block body %}
+
+    {% if user.tenant %}
+        <h1>This is the homepage for a tenant who is signed in.</h1>
+
+        <div class="list-container">
+        {% if my_unit %}
+
+        <div class="listed-item">
+            <p> You live at {{my_unit}} </p>
+        </div>
+        
+
+        {% else %}
+
+        <p>TODO: Find your unit in this form!</p>
+
+        {% endif %}
+        </div>
+
+
+    {% endif %}
+
+    {% if user.manager %}
+        
+        {% if units%}
+            
+            <h1>My Properties:</h1>
+
+            <div class="list-container">
+            {% for unit in units %}
+
+                <div class="listed-item">
+                    {{unit}}
+                </div>
+                
+            {% endfor %}
+            </div>
+
+        {% else %}
+            <br><br>
+            <p> You have not registered any properties yet. </p>
+            <p> Let's get started! </p>
+            TODO: Add a property
+        {% endif %}
+
+        
+
+    {% endif %}
+
+{% endblock %}

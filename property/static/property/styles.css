@@ -1,0 +1,53 @@
+body {
+    background-color: rgb(219, 148, 148);
+    color: maroon;
+}
+
+.body {
+    padding: 3rem;
+    text-align: center;
+}
+
+h1 {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    margin: auto;
+    text-align: center;
+    border: maroon solid 2px;
+    background-color: white;
+    color: maroon;
+    display: block;
+    box-shadow: 5px 5px;
+    width: 50%;
+    min-width: 350px;
+}
+
+.login {
+    text-align: center;
+    width: 30%;
+    padding: 30px;
+    margin: auto;
+}
+
+.list-container{
+    padding: 2rem;
+    margin: 2rem;
+}
+
+.listed-item {
+    padding: 1rem;
+    margin: auto;
+    width: 40%;
+    min-width: 300px;
+    margin-bottom: 2rem;
+    text-align: center;
+    border: white solid 2px;
+    background-color: rgb(60, 108, 196);
+    color: white;
+    display: block;
+}
+
+.listed-item:hover {
+    box-shadow: white 5px 5px;
+    cursor: pointer;
+}
