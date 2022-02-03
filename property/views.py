@@ -39,6 +39,26 @@ def index(request):
     else:
         return render(request, 'property/error.html')
 
+@login_required
+def add_property(request):
+    if request.method =="POST":
+        try:
+            u = Unit(
+                manager = User.objects.get(username=request.user),
+                address = request.POST["address"],
+                image = request.POST["image"]
+            )
+        except ValueError:
+            return render(request, "property/error.html", {
+                "message": "Invalid Property"
+            })
+        if u.address == "":
+            return render(request, "property/index.html", {
+                "add_message": "Must provide an address"
+            })
+
+        u.save()
+        return HttpResponseRedirect(reverse("index"))
 
 def messages(request):
     if request.method == "GET":

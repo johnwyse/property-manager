@@ -52,3 +52,13 @@ h1 {
     box-shadow: white 5px 5px;
     cursor: pointer;
 }
+
+.add_property {
+    padding: 1rem;
+    margin: auto;
+}
+
+#add_address, #add_image {
+    width: 40%;
+    min-width: 300px;
+}
