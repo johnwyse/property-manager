@@ -3,7 +3,23 @@
 {% block body %}
 
 {% if user == unit.manager %}
-    This is the page for {{unit}}
+
+    <div class="listed-item">
+
+        <p>{{unit}}</p>
+
+        {% if unit.tenant %}
+        <p>Tenant: {{unit.tenant.first_name}} {{unit.tenant.last_name}}</p>
+        {% else %}
+        <p>This unit does not have a registered tenant.</p>
+        {% endif %}
+
+        {% if unit.image %}
+        <img src="{{ unit.image }}" alt="{{ unit.address }}" height=200>
+        {% endif %}
+
+    </div>
+
 {% else %}
     You don't have permission to see this unit. Sorry!
 {% endif %}

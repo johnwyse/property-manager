@@ -11,6 +11,9 @@
         <div class="listed-item">
             <p>{{my_unit}}</p>
             <p>Property Manager: {{my_unit.manager.first_name}} {{my_unit.manager.last_name}}</p>
+            {% if my_unit.image %}
+            <img src="{{ my_unit.image }}" alt="{{ unit.address }}" height=200>
+            {% endif %}
         </div>
         
 
@@ -26,7 +29,7 @@
 
     {% if user.manager %}
         
-        {% if units%}
+        {% if units %}
             
             <h1>My Properties:</h1>
 
