@@ -11,6 +11,8 @@ urlpatterns = [
     path("issues", views.issues, name="issues"),
     path("profile", views.profile, name="profile"),
     path("add_property", views.add_property, name="add_property"),
+    path("report_issue", views.report_issue, name="report_issue"),
+    path("send_message", views.send_message, name="send_message"),
     path("unit/<int:unit_id>", views.unit, name="unit")
 
 

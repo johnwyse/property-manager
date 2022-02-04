@@ -59,6 +59,49 @@ def add_property(request):
     else:
         return render(request, "property/add_property.html")
 
+@login_required
+def report_issue(request):
+    if request.method =="POST":
+        reporter = User.objects.get(username=request.user)
+        try:
+            i = Issue(
+                unit_id = Unit.objects.get(tenant=reporter),
+                title = request.POST["title"],
+                image = request.POST["image"],
+                description = request.POST["description"],
+            )
+        except ValueError:
+            return render(request, "property/error.html", {
+                "message": "Invalid Issue. Try again."
+            })
+        i.save()
+        return HttpResponseRedirect(reverse("issues"))
+    else:
+        return HttpResponseRedirect(reverse("index"))
+
+
+@login_required
+def send_message(request):
+    if request.method =="POST":
+        my_unit = Unit.objects.get(tenant=request.user)
+        try:
+            m = Message(
+                sender = User.objects.get(username=request.user),
+                recipient = User.objects.get(user=my_unit.manager),
+                image = request.POST["image"],
+                text = request.POST["text"],
+            )
+        except ValueError:
+            return render(request, "property/error.html", {
+                "message": "Invalid message. Try again."
+            })
+        m.save()
+        return HttpResponseRedirect(reverse("messages"))
+    else:
+        return HttpResponseRedirect(reverse("index"))
+
+
+
 
 def unit(request, unit_id):
     if request.method == "GET":

@@ -75,7 +75,7 @@ h1 {
     cursor: pointer;
 }
 
-.add-property-link {
+.add-property-link, #show_report_issue_form, #show_send_message_form {
     padding: 0.5rem;
     margin: auto;
     width: 20%;
@@ -88,17 +88,28 @@ h1 {
     display: block;
 }
 
-.add-property-link:hover {
+.add-property-link:hover, #show_report_issue_form:hover, #show_send_message_form:hover {
     box-shadow: white 5px 5px;
     cursor: pointer;
 }
 
-.add_property {
+.add_property, .report-issue-form, .send-message-form {
     padding-top: 2rem;
     margin: auto;
 }
 
+.report-issue-form, .send-message-form {
+    padding-top: 2rem;
+    margin: auto;
+    display: none;
+}
+
 #add_address, #add_image {
+    width: 40%;
+    min-width: 300px;
+}
+
+.issue_input, .message_input {
     width: 40%;
     min-width: 300px;
 }
