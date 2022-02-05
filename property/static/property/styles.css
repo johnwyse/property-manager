@@ -75,7 +75,7 @@ h1 {
     cursor: pointer;
 }
 
-.add-property-link, #show_report_issue_form, #show_send_message_form {
+.add-property-link {
     padding: 0.5rem;
     margin: auto;
     width: 20%;
@@ -93,15 +93,9 @@ h1 {
     cursor: pointer;
 }
 
-.add_property, .report-issue-form, .send-message-form {
+.add_property {
     padding-top: 2rem;
     margin: auto;
-}
-
-.report-issue-form, .send-message-form {
-    padding-top: 2rem;
-    margin: auto;
-    display: none;
 }
 
 #add_address, #add_image {
@@ -110,6 +104,32 @@ h1 {
 }
 
 .issue_input, .message_input {
-    width: 40%;
-    min-width: 300px;
+    width: 80%;
+    min-width: 200px;
 }
+
+.inline-child {
+    display: inline-block;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    width: 42%;
+    min-width: 250px;
+    vertical-align: top;
+}
+
+#show_report_issue_form, #show_send_message_form {
+    padding: 0.5rem;
+    margin: auto;
+    width: 60%;
+    min-width: 200px;
+    margin-bottom: 2rem;
+    text-align: center;
+    border: white solid 2px;
+    background-color: rgb(103, 149, 235);
+    color: white;
+}
+
+.send-message-form, .report-issue-form {
+    display: none;
+}
+

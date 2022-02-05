@@ -16,40 +16,36 @@
             {% endif %}
         </div>
 
-        <div class="float-container">
-            <div class="float-child">
-                <div class="report-issue">
-                    <button onclick="show_report_issue_form()" id="show_report_issue_form">Report an issue to {{my_unit.manager.first_name}}</button>
-                    
-                    <div class="report-issue-form">
-                        <form action="{% url 'report_issue' %}" method="post">
-                            {% csrf_token %}
-                            <input class="issue_input" id="issue_title" name="title" autocomplete=off type=text placeholder="Title">
-                            <br><br>
-                            <input class="issue_input" id="issue_image" name="image" autocomplete=off type=text placeholder="Image URL (optional)">
-                            <br><br>
-                            <textarea class="issue_input" id="issue_description" name="description" autocomplete=off type=text placeholder="Description" rows=5 cols=100></textarea>
-                            <br><br>
-                            <input class="btn btn-warning" type="submit" value="Submit Issue">
-                        </form>
-                    </div>
+        <div class="inline-container">
+            <div class="inline-child">
+                <button onclick="show_report_issue_form()" id="show_report_issue_form">Report an issue to {{my_unit.manager.first_name}}</button>
+                
+                <div class="report-issue-form">
+                    <form action="{% url 'report_issue' %}" method="post">
+                        {% csrf_token %}
+                        <input class="issue_input" id="issue_title" name="title" autocomplete=off type=text placeholder="Title">
+                        <br><br>
+                        <input class="issue_input" id="issue_image" name="image" autocomplete=off type=text placeholder="Image URL (optional)">
+                        <br><br>
+                        <textarea class="issue_input" id="issue_description" name="description" autocomplete=off type=text placeholder="Description" rows=4 cols=80></textarea>
+                        <br><br>
+                        <input class="btn btn-warning" type="submit" value="Submit Issue">
+                    </form>
                 </div>
             </div>
 
-            <div class="float-child">
-                <div class="send-message">
-                    <button onclick="show_send_message_form()" id="show_send_message_form">Send {{my_unit.manager.first_name}} a message</button>
-                    
-                    <div class="send-message-form">
-                        <form action="{% url 'send_message' %}" method="post">
-                            {% csrf_token %}
-                            <textarea class="message_input" id="message_text" name="text" autocomplete=off type=text placeholder="Message" rows=5 cols=100></textarea>
-                            <br><br>
-                            <input class="message_input" id="message_image" name="image" autocomplete=off type=text placeholder="Image URL (optional)">
-                            <br><br>
-                            <input class="btn btn-warning" type="submit" value="Send Message">
-                        </form>
-                    </div>
+            <div class="inline-child">
+                <button onclick="show_send_message_form()" id="show_send_message_form">Send {{my_unit.manager.first_name}} a message</button>
+                
+                <div class="send-message-form">
+                    <form action="{% url 'send_message' %}" method="post">
+                        {% csrf_token %}
+                        <textarea class="message_input" id="message_text" name="text" autocomplete=off type=text placeholder="Message" rows=6 cols=100></textarea>
+                        <br><br>
+                        <input class="message_input" id="message_image" name="image" autocomplete=off type=text placeholder="Image URL (optional)">
+                        <br><br>
+                        <input class="btn btn-warning" type="submit" value="Send Message">
+                    </form>
                 </div>
             </div>
         </div>
