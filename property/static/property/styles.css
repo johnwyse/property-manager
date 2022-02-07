@@ -9,6 +9,15 @@ body {
     font-family: 'Yusei Magic', sans-serif;
 }
 
+#property {
+    color: maroon;
+}
+
+#property:hover {
+    color: rgb(56, 1, 1);
+    cursor: pointer;
+}
+
 .listed-item-link > a {
     color: white;
     text-decoration: none;
