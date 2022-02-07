@@ -2,6 +2,43 @@
 
 {% block body %}
 
-<p>This is messages</p>
+<h1>Messages</h1>
+
+<button onclick="show_send_message_form_block()" class="send_a_message">Send a new message</button>
+                
+<div class="send_a_message_form">
+    <form action="{% url 'send_message' %}" method="post">
+        {% csrf_token %}
+        <textarea class="message_input" id="message_text" name="text" autocomplete=off type=text placeholder="Message" rows=6 cols=100></textarea>
+        <br><br>
+        <input class="message_input" id="message_image" name="image" autocomplete=off type=text placeholder="Image URL (optional)">
+        <br><br>
+        <input class="btn btn-warning" type="submit" value="Send Message">
+    </form>
+</div>
+
+{% for message in messages %}
+
+<div class="listed-item-messages-{{message.sender.tenant}}">
+
+    <div class="original_message_content">
+        <p class="timestamp">{{ message.timestamp }}</p>
+        <p id="original_content_{{message.id}}"><strong>{{ message.sender }}</strong>: {{ message.text }}</p>
+    </div>
+
+    {% if user == message.sender %}
+    <div class="edit_message" style="display: none">
+        <div id="edit_message_area_{{message.id}}">
+            <textarea id="updated_text_{{message.id}}">{{ message.text }}</textarea><br>
+            <button onclick="update_message('{{ message.id }}')" type="button" id="update_button" class="update btn btn-info">Update Message</button>
+            <input id="message_id" type=hidden value="{{ message.id }}">
+            <br><br>
+        </div>
+        <button onclick="show_textarea('{{ message.id }}')" id="edit_button" type="button" class="edit btn btn-warning">Edit</button>
+    </div>
+    {% endif %}
+</div>
+
+{% endfor %}
 
 {% endblock %}

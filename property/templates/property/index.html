@@ -3,7 +3,7 @@
 {% block body %}
 
     {% if user.tenant %}
-        <h1>Hello, {{user}}!</h1>
+        <h1>Hello, {{user.first_name}}!</h1>
 
         <div class="list-container">
         {% if my_unit %}
@@ -18,7 +18,7 @@
 
         <div class="inline-container">
             <div class="inline-child">
-                <button onclick="show_report_issue_form()" id="show_report_issue_form">Report an issue to {{my_unit.manager.first_name}}</button>
+                <button onclick="show_report_issue_form_inline()" id="show_report_issue_form">Report an issue to {{my_unit.manager.first_name}}</button>
                 
                 <div class="report-issue-form">
                     <form action="{% url 'report_issue' %}" method="post">
@@ -35,9 +35,9 @@
             </div>
 
             <div class="inline-child">
-                <button onclick="show_send_message_form()" id="show_send_message_form">Send {{my_unit.manager.first_name}} a message</button>
+                <button onclick="show_send_message_form_inline()" id="show_send_message_form">Send {{my_unit.manager.first_name}} a message</button>
                 
-                <div class="send-message-form">
+                <div id="send-message-form">
                     <form action="{% url 'send_message' %}" method="post">
                         {% csrf_token %}
                         <textarea class="message_input" id="message_text" name="text" autocomplete=off type=text placeholder="Message" rows=6 cols=100></textarea>

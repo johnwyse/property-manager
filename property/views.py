@@ -83,20 +83,24 @@ def report_issue(request):
 @login_required
 def send_message(request):
     if request.method =="POST":
-        my_unit = Unit.objects.get(tenant=request.user)
-        try:
-            m = Message(
-                sender = User.objects.get(username=request.user),
-                recipient = User.objects.get(user=my_unit.manager),
-                image = request.POST["image"],
-                text = request.POST["text"],
-            )
-        except ValueError:
-            return render(request, "property/error.html", {
-                "message": "Invalid message. Try again."
-            })
-        m.save()
-        return HttpResponseRedirect(reverse("messages"))
+        if request.user.tenant == True:
+            my_unit = Unit.objects.get(tenant=request.user)
+            try:
+                m = Message(
+                    sender = User.objects.get(username=request.user),
+                    recipient = User.objects.get(username=my_unit.manager),
+                    image = request.POST["image"],
+                    text = request.POST["text"],
+                )
+            except ValueError:
+                return render(request, "property/error.html", {
+                    "message": "Invalid message. Try again."
+                })
+            m.save()
+            return HttpResponseRedirect(reverse("messages"))
+        else:
+            # if manager is sending to tenant
+            pass
     else:
         return HttpResponseRedirect(reverse("index"))
 
@@ -113,7 +117,15 @@ def unit(request, unit_id):
 
 def messages(request):
     if request.method == "GET":
-        return render(request, 'property/messages.html')
+        user = User.objects.get(username=request.user)
+        if user.tenant == True:
+            messages = Message.objects.filter(sender=user).values_list('id') | Message.objects.filter(recipient=user).values_list('id')
+            ordered_messages = Message.objects.filter(id__in=messages).order_by('-timestamp')
+            print(ordered_messages)
+
+        return render(request, 'property/messages.html', {
+            "messages": ordered_messages
+        })
     else:
         return render(request, 'property/error.html')
 

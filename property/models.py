@@ -12,6 +12,7 @@ class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="senders")
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recipients")
     timestamp = models.DateTimeField(default=timezone.now)
+    image = models.URLField(blank=True, default='', max_length=1000)
     text = models.TextField(max_length=1000, default=" ", null=False, blank=False)
     read = models.BooleanField(default=False)
 
