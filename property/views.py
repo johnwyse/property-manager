@@ -123,9 +123,12 @@ def messages(request):
             ordered_messages = Message.objects.filter(id__in=messages).order_by('-timestamp')
             print(ordered_messages)
 
-        return render(request, 'property/messages.html', {
-            "messages": ordered_messages
-        })
+            return render(request, 'property/messages.html', {
+                "messages": ordered_messages
+            })
+        else:
+            # manager loads links to messages with each tenant/unit
+            return render(request, 'property/messages.html')
     else:
         return render(request, 'property/error.html')
 

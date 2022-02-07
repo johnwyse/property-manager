@@ -65,7 +65,7 @@ h1 {
 .listed-item-messages-True {
     padding: .3rem;
     margin: auto;
-    width: 90%;
+    width: 60%;
     min-width: 300px;
     margin-bottom: 1rem;
     text-align: center;
@@ -78,7 +78,7 @@ h1 {
 .listed-item-messages-False {
     padding: .3rem;
     margin: auto;
-    width: 90%;
+    width: 60%;
     min-width: 300px;
     margin-bottom: 1rem;
     text-align: center;
