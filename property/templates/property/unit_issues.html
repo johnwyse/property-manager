@@ -16,8 +16,11 @@
             {% for issue in unresolved_issues %}
                 <div class="unresolved-item">
                     <p>Issue: {{issue.title}}</p>
+                    <p>Reported: {{issue.time_created}}</p>
                     <p>Description: {{issue.description}}</p>
-                    <p>{{issue.image}}</p>
+                    {% if issue.image %} 
+                    <img src="{{ issue.image }}" alt="{{ issue.title }}" height=200><br><br>
+                    {% endif %}
                     {% if user.tenant %} 
                     <button class="btn btn-warning" id="resolve_button">Mark as Resolved</button>
                     {% endif %}
@@ -33,8 +36,11 @@
             {% for issue in resolved_issues %}
                 <div class="resolved-item">
                     <p>Issue: {{issue.title}}</p>
+                    <p>Reported: {{issue.time_created}}</p>
                     <p>Description: {{issue.description}}</p>
-                    <p>{{issue.image}}</p>
+                    {% if issue.image %} 
+                    <img src="{{ issue.image }}" alt="{{ issue.title }}" height=200><br><br>
+                    {% endif %}
                 </div>
             
             {% endfor %}
