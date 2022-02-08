@@ -86,7 +86,7 @@
             {% for unit in units %}
 
                 <div class="listed-item-link">
-                    <a href="{% url 'unit' unit.id %}">{{unit}}</a>
+                    <a href="{% url 'unit' unit.id %}">{{unit}} {% if unit.tenant %} ({{unit.tenant.first_name}}) {% else %} (No tenants yet) {% endif %}</a>
                 </div>
                 
             {% endfor %}
