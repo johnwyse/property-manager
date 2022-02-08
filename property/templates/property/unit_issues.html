@@ -10,21 +10,35 @@
     
     
         <div class="inline-child">
-            <h2>Unresolved Issues</h2>
-            {% for issue in unresolved_issues %}
-            {{issue.title}} <br>
-            {{issue.description}}<br><br>
+            <h2 id="unresolved_header">Unresolved Issues</h2>
             
+            <div class="unresolved-issues">
+            {% for issue in unresolved_issues %}
+                <div class="unresolved-item">
+                    <p>Issue: {{issue.title}}</p>
+                    <p>Description: {{issue.description}}</p>
+                    <p>{{issue.image}}</p>
+                    {% if user.tenant %} 
+                    <button class="btn btn-warning" id="resolve_button">Mark as Resolved</button>
+                    {% endif %}
+                </div>
             {% endfor %}
+            </div>
         </div>
 
         <div class="inline-child">
-            <h2>Resolved Issues</h2>
+            <h2 id="resolved_header">Resolved Issues</h2>
+
+            <div class="resolved-issues">
             {% for issue in resolved_issues %}
-            {{issue.title}}
-            {{issue.description}}
+                <div class="resolved-item">
+                    <p>Issue: {{issue.title}}</p>
+                    <p>Description: {{issue.description}}</p>
+                    <p>{{issue.image}}</p>
+                </div>
             
             {% endfor %}
+            </div>
         </div>
     
     {% else %}
