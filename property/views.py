@@ -100,13 +100,26 @@ def send_message(request):
             return HttpResponseRedirect(reverse("messages"))
         else:
             # if manager is sending to tenant
-            pass
+            unit = Unit.objects.get(tenant=request.POST["tenant"])
+            try:
+                m = Message(
+                    sender = User.objects.get(username=request.user),
+                    recipient = User.objects.get(username=User.objects.get(id=request.POST["tenant"])),
+                    image = request.POST["image"],
+                    text = request.POST["text"],
+                )
+            except ValueError:
+                return render(request, "property/error.html", {
+                    "message": "Invalid message. Try again."
+                })
+            m.save()
+            return HttpResponseRedirect(reverse("unit_messages", kwargs={'unit_id': unit.id}))
     else:
         return HttpResponseRedirect(reverse("index"))
 
 
 
-
+@login_required
 def unit(request, unit_id):
     if request.method == "GET":
         unit = Unit.objects.get(id=unit_id)
@@ -114,7 +127,7 @@ def unit(request, unit_id):
             "unit": unit
         })
 
-
+@login_required
 def messages(request):
     if request.method == "GET":
         user = User.objects.get(username=request.user)
@@ -128,10 +141,28 @@ def messages(request):
             })
         else:
             # manager loads links to messages with each tenant/unit
-            return render(request, 'property/messages.html')
+            try:
+                units = Unit.objects.filter(manager=request.user).exclude(tenant=None)
+            except ObjectDoesNotExist:
+                units = None
+            return render(request, 'property/messages.html', {
+                "units": units
+            })
     else:
         return render(request, 'property/error.html')
 
+@login_required
+def unit_messages(request, unit_id):
+    if request.method == "GET":
+        unit = Unit.objects.get(id=unit_id)
+        messages = Message.objects.filter(sender=unit.manager).filter(recipient=unit.tenant) | Message.objects.filter(recipient=unit.manager).filter(sender=unit.tenant)
+        ordered_messages = Message.objects.filter(id__in=messages).order_by('-timestamp')
+        return render(request, 'property/unit_messages.html', {
+            "messages": ordered_messages,
+            "unit": unit
+        })
+    else:
+        return render(request, 'property/error.html')
 
 def issues(request):
     if request.method == "GET":

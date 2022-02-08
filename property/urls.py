@@ -13,7 +13,8 @@ urlpatterns = [
     path("add_property", views.add_property, name="add_property"),
     path("report_issue", views.report_issue, name="report_issue"),
     path("send_message", views.send_message, name="send_message"),
-    path("unit/<int:unit_id>", views.unit, name="unit")
+    path("unit/<int:unit_id>", views.unit, name="unit"),
+    path("unit_messages/<int:unit_id>", views.unit_messages, name="unit_messages")
 
 
     # API Routes
