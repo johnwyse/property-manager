@@ -132,12 +132,21 @@ def messages(request):
     if request.method == "GET":
         user = User.objects.get(username=request.user)
         if user.tenant == True:
+            try:
+                unit_count = Unit.objects.filter(tenant=request.user).count()
+            except ObjectDoesNotExist:
+                unit_count = 0
+            print(unit_count)
+            if unit_count == 1:
+                unit_claimed = True
+            else:
+                unit_claimed = False
             messages = Message.objects.filter(sender=user).values_list('id') | Message.objects.filter(recipient=user).values_list('id')
             ordered_messages = Message.objects.filter(id__in=messages).order_by('-timestamp')
-            print(ordered_messages)
 
             return render(request, 'property/messages.html', {
-                "messages": ordered_messages
+                "messages": ordered_messages,
+                "unit_claimed": unit_claimed
             })
         else:
             # manager loads links to messages with each tenant/unit
@@ -176,6 +185,20 @@ def profile(request):
         return render(request, 'property/profile.html')
     else:
         return render(request, 'property/error.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
