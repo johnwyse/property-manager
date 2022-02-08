@@ -2,6 +2,21 @@
 
 {% block body %}
 
-<p>This is issues</p>
+{% if user.is_authenticated %}
+
+    <h1>Issues</h1>
+
+    {% if user.manager %}
+    
+    
+    
+    {% else %}
+    <br><br>You must claim an address and property manager before you can create or view issues.
+    <br><br>If you believe you have claimed an address, please click "Issues" link.
+    {% endif %}
+
+{% else %}
+You must be logged in to see this page.
+{% endif %}
 
 {% endblock %}

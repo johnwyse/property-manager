@@ -14,7 +14,8 @@ urlpatterns = [
     path("report_issue", views.report_issue, name="report_issue"),
     path("send_message", views.send_message, name="send_message"),
     path("unit/<int:unit_id>", views.unit, name="unit"),
-    path("unit_messages/<int:unit_id>", views.unit_messages, name="unit_messages")
+    path("unit_messages/<int:unit_id>", views.unit_messages, name="unit_messages"),
+    path("unit_issues/<int:unit_id>", views.unit_issues, name="unit_issues")
 
 
     # API Routes

@@ -173,11 +173,37 @@ def unit_messages(request, unit_id):
     else:
         return render(request, 'property/error.html')
 
+@login_required
 def issues(request):
     if request.method == "GET":
-        return render(request, 'property/issues.html')
+        if request.user.tenant:
+            try:
+                unit_count = Unit.objects.filter(tenant=request.user).count()
+            except ObjectDoesNotExist:
+                unit_count = 0
+            print(unit_count)
+            if unit_count != 1:
+                return render(request, 'property/issues.html')
+            else:
+                unit = Unit.objects.get(tenant=request.user)
+                return HttpResponseRedirect(reverse("unit_issues", kwargs={'unit_id': unit.id}))
     else:
         return render(request, 'property/error.html')
+
+
+def unit_issues(request, unit_id):
+    if request.method == "GET":
+        unit = Unit.objects.get(id=unit_id)
+        resolved_issues = Issue.objects.filter(unit_id=unit.id).filter(resolved=True).order_by('-time_created') 
+        unresolved_issues = Issue.objects.filter(unit_id=unit.id).filter(resolved=False).order_by('-time_created') 
+        return render(request, 'property/unit_issues.html', {
+            "resolved_issues": resolved_issues,
+            "unresolved_issues": unresolved_issues,
+            "unit": unit
+        })
+    else:
+        return render(request, 'property/error.html')
+
 
 
 def profile(request):

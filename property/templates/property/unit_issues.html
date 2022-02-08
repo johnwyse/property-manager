@@ -1,0 +1,38 @@
+{% extends "property/layout.html" %}
+
+{% block body %}
+
+<h1>Issues</h1>
+
+{% if user.is_authenticated %}
+
+    {% if user == unit.manager or user == unit.tenant %}
+    
+    
+        <div class="inline-child">
+            <h2>Unresolved Issues</h2>
+            {% for issue in unresolved_issues %}
+            {{issue.title}} <br>
+            {{issue.description}}<br><br>
+            
+            {% endfor %}
+        </div>
+
+        <div class="inline-child">
+            <h2>Resolved Issues</h2>
+            {% for issue in resolved_issues %}
+            {{issue.title}}
+            {{issue.description}}
+            
+            {% endfor %}
+        </div>
+    
+    {% else %}
+    <br><br>You don't have access to see these issues.
+    {% endif %}
+
+{% else %}
+You must be logged in to see this page.
+{% endif %}
+
+{% endblock %}
