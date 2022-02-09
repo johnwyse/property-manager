@@ -14,10 +14,11 @@
         <div class="list-container">
 
             {% for unit in units %}
-
+            <a href="{% url 'unit_messages' unit.id %}">
                 <div class="listed-item-link">
-                    <a class="fill_div" href="{% url 'unit_messages' unit.id %}">Messages with {{unit.tenant.first_name}} {{unit.tenant.last_name}} ({{unit}})</a>
+                    Messages with {{unit.tenant.first_name}} {{unit.tenant.last_name}} ({{unit}})
                 </div>
+            </a>
                 
             {% endfor %}
         </div>

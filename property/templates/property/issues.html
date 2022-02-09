@@ -14,15 +14,17 @@
 
             {% for count, unit in issues_info %}
 
-                <div class="listed-item-link">
-                    <a class="fill_div" href="{% url 'unit_issues' unit.id %}">{{unit}} ({{unit.tenant.first_name}})</a>
-                    <br>
-                    {% if count %}
-                    <p>{{count}} unresolved issue(s)</p>
-                    {% else %}
-                    <p>0 unresolved issues! :)</p>
-                    {% endif %}
-                </div>
+                <a href="{% url 'unit_issues' unit.id %}">
+                    <div class="listed-item-link">
+                        {{unit}} ({{unit.tenant.first_name}})
+                        <br>
+                        {% if count %}
+                        {{count}} unresolved issue(s)
+                        {% else %}
+                        0 unresolved issues! :)
+                        {% endif %}
+                    </div>
+                </a>
                 
             {% endfor %}
         </div>

@@ -235,7 +235,10 @@ def unit_issues(request, unit_id):
 
 def profile(request):
     if request.method == "GET":
-        return render(request, 'property/profile.html')
+        user = User.objects.get(username=request.user)
+        return render(request, 'property/profile.html', {
+            "user": user
+        })
     else:
         return render(request, 'property/error.html')
 

@@ -17,12 +17,9 @@ body {
     color: rgb(56, 1, 1);
     cursor: pointer;
 }
-
-.listed-item-link > a {
-    color: white;
-    text-decoration: none;
+a {
+    text-decoration: none !important;
 }
-
 .add-property-link > a {
     color: maroon;
     text-decoration: none;
@@ -235,13 +232,6 @@ h2 {
     background-color: seagreen;
     color: white;
     display: block;
-}
-
-a.fill_div {
-    display: block;
-    height: 100%;
-    width: 100%;
-    text-decoration: none;
 }
 
 #send-message-form, .report-issue-form {
