@@ -57,9 +57,9 @@
             <form action="{% url 'add_tenant' %}" method="post">
                 {% csrf_token %}
                 <p>Find your address:</p>
-                <select name="empty_units" id="empty_units">
+                <select name="chosen_unit" id="empty_units">
                     {% for unit in empty_units %}
-                    <option value="{{unit}}">{{unit}}</option>
+                    <option value="{{unit.id}}">{{unit}}</option>
                     {% endfor %}
                 </select>
                 <br><br>

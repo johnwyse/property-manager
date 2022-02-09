@@ -38,9 +38,19 @@ def index(request):
             })
     else:
         return render(request, 'property/login.html')
-
+@login_required
 def add_tenant(request):
-    pass
+    if request.method == "POST":
+        if request.user.tenant:
+            try:
+                unit = Unit.objects.get(id=request.POST["chosen_unit"])
+                unit.tenant = request.user
+                unit.save()
+            except ValueError:
+                return render(request, "property/error.html")
+        return HttpResponseRedirect(reverse("index"))
+    else:
+        return render(request, 'property/error.html')
 
 @login_required
 def add_property(request):
