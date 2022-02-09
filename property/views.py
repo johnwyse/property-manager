@@ -27,14 +27,20 @@ def index(request):
         else:
             try:
                 my_unit = Unit.objects.get(tenant=request.user)
+                empty_units = None
             except ObjectDoesNotExist: 
                 my_unit = None
+                empty_units = Unit.objects.filter(tenant=None)
             print(my_unit)
             return render(request, 'property/index.html', {
-                "my_unit": my_unit
+                "my_unit": my_unit,
+                "empty_units": empty_units
             })
     else:
         return render(request, 'property/login.html')
+
+def add_tenant(request):
+    pass
 
 @login_required
 def add_property(request):

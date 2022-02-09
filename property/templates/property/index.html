@@ -53,7 +53,22 @@
 
         {% else %}
 
-        <p>TODO: Find your unit in this form!</p>
+        <div class=listed-item>
+            <form action="{% url 'add_tenant' %}" method="post">
+                {% csrf_token %}
+                <p>Find your address:</p>
+                <select name="empty_units" id="empty_units">
+                    {% for unit in empty_units %}
+                    <option value="{{unit}}">{{unit}}</option>
+                    {% endfor %}
+                </select>
+                <br><br>
+                <input class="btn btn-warning" type="submit" value="Register">
+                <br><br>
+                Don't see your address? Ask your property manager to sign up and add it.
+
+            </form>
+        </div>
 
         {% endif %}
         </div>
@@ -77,9 +92,11 @@
 
             <h1>My Properties</h1>
 
-            <div class="add-property-link">
-                <a href="{% url 'add_property' %}">Add Property</a>
-            </div>
+            <a href="{% url 'add_property' %}">
+                <div class="add-property-link">
+                    Add Property
+                </div>
+            </a>
 
             <div class="list-container">
                 {% for unit in units %}

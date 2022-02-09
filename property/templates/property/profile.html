@@ -2,6 +2,21 @@
 
 {% block body %}
 
-<p>This is the user's profile</p>
+
+    <h1>{{user.first_name}} {{user.last_name}}</h1>
+
+    <br><br><br>
+    
+    <div class="listed-item">
+        
+        {% if user.tenant %}
+        <p>Tenant</p>
+        {% else %}
+        <p>Property Manager</p>
+        {% endif %}
+        <p>username: {{user}}</p>
+        <p>email: {{user.email}}</p>
+
+    </div>
 
 {% endblock %}
