@@ -6,6 +6,14 @@ function show_report_issue_form_inline() {
         
 }
 
+function show_report_issue_form_block() {
+    console.log("issue button clicked")
+
+    document.querySelector(".report_an_issue_form").style.display = "block";
+    
+        
+}
+
 function show_send_message_form_inline() {
     console.log("send message button clicked")
 

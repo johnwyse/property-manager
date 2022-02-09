@@ -24,7 +24,7 @@ body {
 }
 
 .add-property-link > a {
-    color: white;
+    color: maroon;
     text-decoration: none;
 }
 
@@ -115,20 +115,7 @@ h1 {
     cursor: pointer;
 }
 
-.add-property-link {
-    padding: 0.5rem;
-    margin: auto;
-    width: 20%;
-    min-width: 200px;
-    margin-top: 2rem;
-    text-align: center;
-    border: white solid 2px;
-    background-color: var(--lightblue);
-    color: white;
-    display: block;
-}
-
-.add-property-link:hover, #show_report_issue_form:hover, #show_send_message_form:hover {
+#show_report_issue_form:hover, #show_send_message_form:hover {
     box-shadow: white 5px 5px;
     cursor: pointer;
 }
@@ -169,7 +156,7 @@ h1 {
     color: white;
 }
 
-.send_a_message {
+.show_send_a_message_form, .show_report_an_issue_form, .add-property-link {
     padding: 0.5rem;
     margin: auto;
     width: 30%;
@@ -177,17 +164,17 @@ h1 {
     margin-bottom: 2rem;
     margin-top: 2rem;
     text-align: center;
-    border: white solid 2px;
-    background-color: var(--lightblue);
-    color: white;
+    border: maroon solid 2px;
+    background-color: white;
+    color: maroon;
 }
 
-.send_a_message:hover {
-    box-shadow: white 5px 5px;
+.show_send_a_message_form:hover, .show_report_an_issue_form:hover, .add-property-link:hover {
+    box-shadow: maroon 5px 5px;
     cursor: pointer;
 }
 
-.send_a_message_form {
+.send_a_message_form, .report_an_issue_form {
     display: none;
     margin: auto;
     width: 50%;
@@ -217,7 +204,7 @@ h2 {
 }
 
 #unresolved_header {
-    background-color:rgba(255, 0, 0, 0.5);
+    background-color:maroon;
 }
 
 #resolved_header {
@@ -232,7 +219,7 @@ h2 {
     margin-bottom: 1rem;
     text-align: left;
     border: white solid 2px;
-    background-color:rgba(255, 0, 0, 0.5);
+    background-color:maroon;
     color: white;
     display: block;
 }

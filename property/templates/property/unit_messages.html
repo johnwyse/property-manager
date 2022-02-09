@@ -5,7 +5,7 @@
 <h1>Messages</h1>
 
 {% if user.manager %}
-    <button onclick="show_send_message_form_block()" class="send_a_message">Send a new message</button>
+    <button onclick="show_send_message_form_block()" class="show_send_a_message_form">Send a new message</button><br>
                     
     <div class="send_a_message_form">
         <form action="{% url 'send_message' %}" method="post">

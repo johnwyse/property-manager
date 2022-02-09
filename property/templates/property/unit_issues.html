@@ -8,7 +8,24 @@
 
     {% if user == unit.manager or user == unit.tenant %}
     
-    
+        {% if user.tenant %}
+        <button onclick="show_report_issue_form_block()" class="show_report_an_issue_form">Report an issue to {{unit.manager.first_name}}</button><br>
+                    
+        <div class="report_an_issue_form">
+            <form action="{% url 'report_issue' %}" method="post">
+                {% csrf_token %}
+                <input class="issue_input" id="issue_title" name="title" autocomplete=off type=text placeholder="Title">
+                <br><br>
+                <input class="issue_input" id="issue_image" name="image" autocomplete=off type=text placeholder="Image URL (optional)">
+                <br><br>
+                <textarea class="issue_input" id="issue_description" name="description" autocomplete=off type=text placeholder="Description" rows=4 cols=80></textarea>
+                <br><br>
+                <input class="btn btn-warning" type="submit" value="Submit Issue">
+            </form>
+        </div>
+        {% endif %}
+
+
         <div class="inline-child">
             <h2 id="unresolved_header">Unresolved Issues</h2>
             
@@ -19,10 +36,11 @@
                     <p>Reported: {{issue.time_created}}</p>
                     <p>Description: {{issue.description}}</p>
                     {% if issue.image %} 
-                    <img src="{{ issue.image }}" alt="{{ issue.title }}" height=200><br><br>
+                    <img src="{{ issue.image }}" alt="{{ issue.title }}" height=200>
                     {% endif %}
                     {% if user.tenant %} 
-                    <button class="btn btn-warning" id="resolve_button">Mark as Resolved</button>
+                    <br><br>
+                    <button class="btn btn-warning" id="resolve_button_{{issue.id}}">Mark as Resolved</button>
                     {% endif %}
                 </div>
             {% endfor %}
