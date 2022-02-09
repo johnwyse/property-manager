@@ -2,21 +2,35 @@
 
 {% block body %}
 
-{% if user.is_authenticated %}
+<h1>Issues</h1>
 
-    <h1>Issues</h1>
+{% if user.tenant %}
+    <br><br>
+    You must claim an address and property manager before you can report or view issues.
+{% else %}
 
-    {% if user.manager %}
-    
-    
-    
+    {% if issues_info %}   
+        <div class="list-container">
+
+            {% for count, unit in issues_info %}
+
+                <div class="listed-item-link">
+                    <a href="{% url 'unit_issues' unit.id %}">Issues at {{unit}} ({{unit.tenant.first_name}})</a>
+                    <br>
+                    {% if count %}
+                    <p>{{count}} unresolved issue(s)</p>
+                    {% else %}
+                    <p>0 unresolved issues! :)</p>
+                    {% endif %}
+                </div>
+                
+            {% endfor %}
+        </div>
     {% else %}
-    <br><br>You must claim an address and property manager before you can create or view issues.
-    <br><br>If you believe you have claimed an address, please click "Issues" link.
+        <br><br>
+        You must add a property with a tenant before you can see see issues.
     {% endif %}
 
-{% else %}
-You must be logged in to see this page.
 {% endif %}
 
 {% endblock %}

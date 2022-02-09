@@ -14,27 +14,27 @@ from .models import User, Issue, Message, Unit
 
 
 def index(request):
-        if request.user.is_authenticated:
-            if request.user.manager:
-                try:
-                    units = Unit.objects.filter(manager=request.user)
-                except ObjectDoesNotExist:
-                    units = None
-                print(units)
-                return render(request, 'property/index.html', {
-                    "units": units
-                })
-            else:
-                try:
-                    my_unit = Unit.objects.get(tenant=request.user)
-                except ObjectDoesNotExist: 
-                    my_unit = None
-                print(my_unit)
-                return render(request, 'property/index.html', {
-                    "my_unit": my_unit
-                })
+    if request.user.is_authenticated:
+        if request.user.manager:
+            try:
+                units = Unit.objects.filter(manager=request.user).order_by('address').order_by('-tenant')
+            except ObjectDoesNotExist:
+                units = None
+            print(units)
+            return render(request, 'property/index.html', {
+                "units": units
+            })
         else:
-            return render(request, 'property/login.html')
+            try:
+                my_unit = Unit.objects.get(tenant=request.user)
+            except ObjectDoesNotExist: 
+                my_unit = None
+            print(my_unit)
+            return render(request, 'property/index.html', {
+                "my_unit": my_unit
+            })
+    else:
+        return render(request, 'property/login.html')
 
 @login_required
 def add_property(request):
@@ -144,7 +144,7 @@ def messages(request):
         else:
             # manager loads links to messages with each tenant/unit
             try:
-                units = Unit.objects.filter(manager=request.user).exclude(tenant=None)
+                units = Unit.objects.filter(manager=request.user).exclude(tenant=None).order_by('-tenant')
             except ObjectDoesNotExist:
                 units = None
             return render(request, 'property/messages.html', {
@@ -158,7 +158,7 @@ def unit_messages(request, unit_id):
     if request.method == "GET":
         unit = Unit.objects.get(id=unit_id)
         if request.user.manager:     
-            messages = Message.objects.filter(sender=unit.manager).filter(recipient=unit.tenant) | Message.objects.filter(recipient=unit.manager).filter(sender=unit.tenant)
+            messages = Message.objects.filter(sender=request.user).filter(recipient=unit.tenant) | Message.objects.filter(recipient=request.user).filter(sender=unit.tenant)
             ordered_messages = Message.objects.filter(id__in=messages).order_by('-timestamp')
             return render(request, 'property/unit_messages.html', {
                 "messages": ordered_messages,
@@ -190,6 +190,27 @@ def issues(request):
             else:
                 unit = Unit.objects.get(tenant=request.user)
                 return HttpResponseRedirect(reverse("unit_issues", kwargs={'unit_id': unit.id}))
+        else:
+            try:
+                units = Unit.objects.filter(manager=request.user).exclude(tenant=None).order_by('address')
+            except ObjectDoesNotExist:
+                units = None
+            
+            unresolved_counts = []
+            for unit in units:
+                unresolved_count = Issue.objects.filter(unit_id=unit.id).filter(resolved=False).count()
+                print(unresolved_count)
+                unresolved_counts.append(unresolved_count)
+            
+            print(unresolved_counts)
+            print(units)
+
+            zipped_issues_info = zip(unresolved_counts, units)
+
+            return render(request, 'property/issues.html', {
+                "issues_info": zipped_issues_info
+            })
+
     else:
         return render(request, 'property/error.html')
 

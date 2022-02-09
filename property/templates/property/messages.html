@@ -5,61 +5,27 @@
 <h1>Messages</h1>
 
 {% if user.tenant %}
-    {% if unit_claimed %}    
-        <button onclick="show_send_message_form_block()" class="show_send_a_message_form">Send a new message</button><br>
-                        
-        <div class="send_a_message_form">
-            <form action="{% url 'send_message' %}" method="post">
-                {% csrf_token %}
-                <textarea class="message_input" id="message_text" name="text" autocomplete=off type=text placeholder="Message" rows=6 cols=100></textarea>
-                <br><br>
-                <input class="message_input" id="message_image" name="image" autocomplete=off type=text placeholder="Image URL (optional)">
-                <br><br>
-                <input class="btn btn-warning" type="submit" value="Send Message">
-            </form>
-        </div>
-    {% else %}
-        <br><br>
-        You must claim an address and property manager before you can send or recieve messages.
-    {% endif %}
-
-    {% for message in messages %}
-
-    <div class="listed-item-messages-{{message.sender.tenant}}">
-
-        <div class="original_message_content">
-            <p class="timestamp">{{ message.timestamp }}</p>
-            <p id="original_content_{{message.id}}"><strong>{{ message.sender.first_name }} {{ message.sender.last_name }}</strong>: {{ message.text }}</p>
-        </div>
-
-        {% if user == message.sender %}
-        <div class="edit_message" style="display: none">
-            <div id="edit_message_area_{{message.id}}">
-                <textarea id="updated_text_{{message.id}}">{{ message.text }}</textarea><br>
-                <button onclick="update_message('{{ message.id }}')" type="button" id="update_button" class="update btn btn-info">Update Message</button>
-                <input id="message_id" type=hidden value="{{ message.id }}">
-                <br><br>
-            </div>
-            <button onclick="show_textarea('{{ message.id }}')" id="edit_button" type="button" class="edit btn btn-warning">Edit</button>
-        </div>
-        {% endif %}
-    </div>
-
-    {% endfor %}
+    <br><br>
+    You must claim an address and property manager before you can send or recieve messages.
 
 {% else %}
 
-<div class="list-container">
-    {% for unit in units %}
+    {% if units %}   
+        <div class="list-container">
 
-        <div class="listed-item-link">
-            <a href="{% url 'unit_messages' unit.id %}">Messages with {{unit.tenant.first_name}} {{unit.tenant.last_name}} ({{unit}})</a>
+            {% for unit in units %}
+
+                <div class="listed-item-link">
+                    <a href="{% url 'unit_messages' unit.id %}">Messages with {{unit.tenant.first_name}} {{unit.tenant.last_name}} ({{unit}})</a>
+                </div>
+                
+            {% endfor %}
         </div>
-        
-    {% endfor %}
-    </div>
+    {% else %}
+        <br><br>
+        You must add a property with a tenant before you can see send or see messages.
+    {% endif %}
 
 {% endif %}
-
 
 {% endblock %}

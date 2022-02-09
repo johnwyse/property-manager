@@ -4,7 +4,7 @@
 
 <h1>Messages</h1>
 
-{% if user.is_authenticated %}
+{% if user.is_authenticated and request.user == unit.manager or request.user == unit.tenant%}
 
     <button onclick="show_send_message_form_block()" class="show_send_a_message_form">Send a new message</button><br>
                     
@@ -48,6 +48,7 @@
 
 {% else %}
 
+<br><br>
 You don't have permission to view this page.
 
 {% endif %}
