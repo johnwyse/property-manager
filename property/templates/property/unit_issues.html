@@ -39,8 +39,11 @@
                     <img src="{{ issue.image }}" alt="{{ issue.title }}" height=200>
                     <br><br>
                     {% endif %}
-                    {% if user.tenant %} 
-                    <button class="btn btn-warning" id="resolve_button_{{issue.id}}">Mark as Resolved</button>
+                    {% if user.tenant %}
+                    <form action="{% url 'change_resolved' issue.id %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-warning" id="resolve_button_{{issue.id}}">Mark as Resolved</button>
+                    </form> 
                     {% endif %}
                 </div>
             {% endfor %}
@@ -57,7 +60,14 @@
                     <p>Reported: {{issue.time_created}}</p>
                     <p>Description: {{issue.description}}</p>
                     {% if issue.image %} 
-                    <img src="{{ issue.image }}" alt="{{ issue.title }}" height=200><br><br>
+                    <img src="{{ issue.image }}" alt="{{ issue.title }}" height=200>
+                    <br><br>
+                    {% endif %}
+                    {% if user.tenant %} 
+                    <form action="{% url 'change_resolved' issue.id %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-warning" id="unresolve_button_{{issue.id}}">Mark as Unresolved</button>
+                    </form> 
                     {% endif %}
                 </div>
             

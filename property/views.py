@@ -38,6 +38,8 @@ def index(request):
             })
     else:
         return render(request, 'property/login.html')
+
+
 @login_required
 def add_tenant(request):
     if request.method == "POST":
@@ -51,6 +53,25 @@ def add_tenant(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, 'property/error.html')
+
+
+@login_required
+def change_resolved(request, issue_id):
+    if request.method == "POST":
+        if request.user.tenant:
+            try:
+                issue = Issue.objects.get(id=issue_id)
+                if issue.resolved == True:
+                    issue.resolved = False
+                else:
+                    issue.resolved = True
+                issue.save()
+            except ValueError:
+                return render(request, "property/error.html")
+        return HttpResponseRedirect(reverse("issues"))
+    else:
+        return render(request, 'property/error.html')
+
 
 @login_required
 def add_property(request):
@@ -74,6 +95,7 @@ def add_property(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "property/add_property.html")
+
 
 @login_required
 def report_issue(request):
