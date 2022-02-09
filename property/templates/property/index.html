@@ -84,8 +84,8 @@
             <div class="list-container">
             {% for unit in units %}
 
-                <div onclick="location.href='{% url 'unit' unit.id %}';" class="listed-item-link">
-                    <a href="{% url 'unit' unit.id %}">{{unit}} {% if unit.tenant %} ({{unit.tenant.first_name}}) {% else %} (No tenants yet) {% endif %}</a>
+                <div class="listed-item-link">
+                    <a class="fill_div" href="{% url 'unit' unit.id %}">{{unit}} {% if unit.tenant %} ({{unit.tenant.first_name}}) {% else %} (No tenants yet) {% endif %}</a>
                 </div>
                 
             {% endfor %}

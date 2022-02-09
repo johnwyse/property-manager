@@ -237,6 +237,13 @@ h2 {
     display: block;
 }
 
+a.fill_div {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+}
+
 #send-message-form, .report-issue-form {
     display: none;
 }
