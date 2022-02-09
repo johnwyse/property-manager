@@ -37,9 +37,9 @@
                     <p>Description: {{issue.description}}</p>
                     {% if issue.image %} 
                     <img src="{{ issue.image }}" alt="{{ issue.title }}" height=200>
+                    <br><br>
                     {% endif %}
                     {% if user.tenant %} 
-                    <br><br>
                     <button class="btn btn-warning" id="resolve_button_{{issue.id}}">Mark as Resolved</button>
                     {% endif %}
                 </div>
