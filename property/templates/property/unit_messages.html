@@ -4,7 +4,8 @@
 
 <h1>Messages</h1>
 
-{% if user.manager %}
+{% if user.is_authenticated %}
+
     <button onclick="show_send_message_form_block()" class="show_send_a_message_form">Send a new message</button><br>
                     
     <div class="send_a_message_form">
@@ -13,7 +14,9 @@
             <textarea class="message_input" id="message_text" name="text" autocomplete=off type=text placeholder="Message" rows=6 cols=100></textarea>
             <br><br>
             <input class="message_input" id="message_image" name="image" autocomplete=off type=text placeholder="Image URL (optional)">
+            {% if user.manager %}
             <input id="tenant_recipient" name="tenant" type=hidden value="{{unit.tenant.id}}"> 
+            {% endif %}
             <br><br>
             <input class="btn btn-warning" type="submit" value="Send Message">
         </form>
@@ -45,8 +48,7 @@
 
 {% else %}
 
-Only property managers can see this page. 
-Click messages in the navigation bar to see your messages.
+You don't have permission to view this page.
 
 {% endif %}
 

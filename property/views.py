@@ -130,24 +130,17 @@ def unit(request, unit_id):
 @login_required
 def messages(request):
     if request.method == "GET":
-        user = User.objects.get(username=request.user)
-        if user.tenant == True:
+        if request.user.tenant == True:
             try:
                 unit_count = Unit.objects.filter(tenant=request.user).count()
             except ObjectDoesNotExist:
                 unit_count = 0
             print(unit_count)
-            if unit_count == 1:
-                unit_claimed = True
+            if unit_count != 1:
+                return render(request, 'property/messages.html')
             else:
-                unit_claimed = False
-            messages = Message.objects.filter(sender=user).values_list('id') | Message.objects.filter(recipient=user).values_list('id')
-            ordered_messages = Message.objects.filter(id__in=messages).order_by('-timestamp')
-
-            return render(request, 'property/messages.html', {
-                "messages": ordered_messages,
-                "unit_claimed": unit_claimed
-            })
+                unit = Unit.objects.get(tenant=request.user)
+                return HttpResponseRedirect(reverse("unit_messages", kwargs={'unit_id': unit.id}))
         else:
             # manager loads links to messages with each tenant/unit
             try:
@@ -164,12 +157,22 @@ def messages(request):
 def unit_messages(request, unit_id):
     if request.method == "GET":
         unit = Unit.objects.get(id=unit_id)
-        messages = Message.objects.filter(sender=unit.manager).filter(recipient=unit.tenant) | Message.objects.filter(recipient=unit.manager).filter(sender=unit.tenant)
-        ordered_messages = Message.objects.filter(id__in=messages).order_by('-timestamp')
-        return render(request, 'property/unit_messages.html', {
-            "messages": ordered_messages,
-            "unit": unit
-        })
+        if request.user.manager:     
+            messages = Message.objects.filter(sender=unit.manager).filter(recipient=unit.tenant) | Message.objects.filter(recipient=unit.manager).filter(sender=unit.tenant)
+            ordered_messages = Message.objects.filter(id__in=messages).order_by('-timestamp')
+            return render(request, 'property/unit_messages.html', {
+                "messages": ordered_messages,
+                "unit": unit
+            })
+        else:
+            messages = Message.objects.filter(sender=request.user).values_list('id') | Message.objects.filter(recipient=request.user).values_list('id')
+            ordered_messages = Message.objects.filter(id__in=messages).order_by('-timestamp')
+            return render(request, 'property/unit_messages.html', {
+                "messages": ordered_messages,
+                "unit": unit
+            })
+
+
     else:
         return render(request, 'property/error.html')
 
