@@ -15,7 +15,7 @@
 
             {% for unit in units %}
 
-                <div class="listed-item-link">
+                <div onclick="location.href='{% url 'unit_messages' unit.id %}';" class="listed-item-link">
                     <a href="{% url 'unit_messages' unit.id %}">Messages with {{unit.tenant.first_name}} {{unit.tenant.last_name}} ({{unit}})</a>
                 </div>
                 

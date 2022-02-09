@@ -14,8 +14,8 @@
 
             {% for count, unit in issues_info %}
 
-                <div class="listed-item-link">
-                    <a href="{% url 'unit_issues' unit.id %}">Issues at {{unit}} ({{unit.tenant.first_name}})</a>
+                <div onclick="location.href='{% url 'unit_issues' unit.id %}';" class="listed-item-link">
+                    <a href="{% url 'unit_issues' unit.id %}">{{unit}} ({{unit.tenant.first_name}})</a>
                     <br>
                     {% if count %}
                     <p>{{count}} unresolved issue(s)</p>

@@ -198,7 +198,10 @@ def issues(request):
             
             unresolved_counts = []
             for unit in units:
-                unresolved_count = Issue.objects.filter(unit_id=unit.id).filter(resolved=False).count()
+                try:
+                    unresolved_count = Issue.objects.filter(unit_id=unit.id).filter(resolved=False).count()
+                except ObjectDoesNotExist:
+                    unresolved_count = None
                 print(unresolved_count)
                 unresolved_counts.append(unresolved_count)
             
