@@ -106,7 +106,7 @@ def report_issue(request):
             i = Issue(
                 unit_id = Unit.objects.get(tenant=reporter),
                 title = request.POST["title"],
-                image = request.POST["image"],
+                image = request.FILES["image"],
                 description = request.POST["description"],
             )
         except ValueError:
@@ -128,7 +128,7 @@ def send_message(request):
                 m = Message(
                     sender = User.objects.get(username=request.user),
                     recipient = User.objects.get(username=my_unit.manager),
-                    image = request.POST["image"],
+                    image = request.FILES["image"],
                     text = request.POST["text"],
                 )
             except ValueError:
@@ -144,7 +144,7 @@ def send_message(request):
                 m = Message(
                     sender = User.objects.get(username=request.user),
                     recipient = User.objects.get(username=User.objects.get(id=request.POST["tenant"])),
-                    image = request.POST["image"],
+                    image = request.FILES["image"],
                     text = request.POST["text"],
                 )
             except ValueError:

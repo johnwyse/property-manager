@@ -14,12 +14,15 @@
         <div class="report_an_issue_form">
             <form action="{% url 'report_issue' %}" method="post">
                 {% csrf_token %}
-                <input class="issue_input" id="issue_title" name="title" autocomplete=off type=text placeholder="Title">
-                <br><br>
-                <input class="issue_input" id="issue_image" name="image" autocomplete=off type=text placeholder="Image URL (optional)">
-                <br><br>
-                <textarea class="issue_input" id="issue_description" name="description" autocomplete=off type=text placeholder="Description" rows=4 cols=80></textarea>
-                <br><br>
+                <div class="upload_form">
+                    <input class="issue_input" id="issue_title" name="title" autocomplete=off type=text placeholder="Title">
+                    <br><br>
+                    <textarea class="issue_input" id="issue_description" name="description" autocomplete=off type=text placeholder="Description" rows=4 cols=80></textarea>
+                    <br><br>
+                    <label for="image">Image (optional)</label>
+                    <br>
+                    <input id="add_image" name="image" type="file">
+                </div>
                 <input class="btn btn-warning" type="submit" value="Submit Issue">
             </form>
         </div>
@@ -36,7 +39,7 @@
                     <p>Reported: {{issue.time_created}}</p>
                     <p>Description: {{issue.description}}</p>
                     {% if issue.image %} 
-                    <img src="{{ issue.image }}" alt="{{ issue.title }}" height=200>
+                    <img src="{{ issue.image.url }}" alt="{{ issue.title }}" height=200>
                     <br><br>
                     {% endif %}
                     {% if user.tenant %}
@@ -60,7 +63,7 @@
                     <p>Reported: {{issue.time_created}}</p>
                     <p>Description: {{issue.description}}</p>
                     {% if issue.image %} 
-                    <img src="{{ issue.image }}" alt="{{ issue.title }}" height=200>
+                    <img src="{{ issue.image.url }}" alt="{{ issue.title }}" height=200>
                     <br><br>
                     {% endif %}
                     {% if user.tenant %} 

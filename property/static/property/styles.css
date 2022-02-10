@@ -125,10 +125,19 @@ h1 {
     text-align: center;
 }
 
-#add_address, #add_image, #add_lease {
-    width: 40%;
-    min-width: 300px;
+.upload_form > input, .upload_form > label, .upload_form > textarea {
+    width: 50%;
+    min-width: 350px;
     text-align: left;
+}
+
+.upload_form > label {
+    color: rgb(91, 91, 91)
+}
+
+.upload_form > textarea {
+    width: 50%;
+    min-width: 350px;
 }
 
 .issue_input, .message_input {
@@ -170,7 +179,7 @@ h1 {
     color: maroon;
 }
 
-.unit-listing {
+.unit-listing, #add_property_form {
     padding: 0.5rem;
     margin: auto;
     width: 40%;
@@ -195,7 +204,6 @@ h1 {
     width: 50%;
     min-width: 350px;
     margin-bottom: 2rem;
-
 }
 
 .edit_message, .original_message_content {

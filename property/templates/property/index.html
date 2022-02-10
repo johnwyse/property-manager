@@ -27,12 +27,15 @@
                 <div class="report-issue-form">
                     <form action="{% url 'report_issue' %}" method="post">
                         {% csrf_token %}
-                        <input class="issue_input" id="issue_title" name="title" autocomplete=off type=text placeholder="Title">
-                        <br><br>
-                        <input class="issue_input" id="issue_image" name="image" autocomplete=off type=text placeholder="Image URL (optional)">
-                        <br><br>
-                        <textarea class="issue_input" id="issue_description" name="description" autocomplete=off type=text placeholder="Description" rows=4 cols=80></textarea>
-                        <br><br>
+                        <div class="upload_form">
+                            <input class="issue_input" id="issue_title" name="title" autocomplete=off type=text placeholder="Title">
+                            <br><br>
+                            <textarea class="issue_input" id="issue_description" name="description" autocomplete=off type=text placeholder="Description" rows=4 cols=80></textarea>
+                            <label for="image">Image (optional)</label>
+                            <br>
+                            <input id="add_image" name="image" type="file">
+                            <br><br>
+                        </div>
                         <input class="btn btn-warning" type="submit" value="Submit Issue">
                     </form>
                 </div>
@@ -44,10 +47,14 @@
                 <div id="send-message-form">
                     <form action="{% url 'send_message' %}" method="post">
                         {% csrf_token %}
-                        <textarea class="message_input" id="message_text" name="text" autocomplete=off type=text placeholder="Message" rows=6 cols=100></textarea>
-                        <br><br>
-                        <input class="message_input" id="message_image" name="image" autocomplete=off type=text placeholder="Image URL (optional)">
-                        <br><br>
+                        <div class="upload_form">
+                            <textarea class="message_input" id="message_text" name="text" autocomplete=off type=text placeholder="Message" rows=6 cols=100></textarea>
+                            <br>
+                            <label for="image">Image (optional)</label>
+                            <br>
+                            <input id="add_image" name="image" type="file">
+                            <br><br>
+                        </div>
                         <input class="btn btn-warning" type="submit" value="Send Message">
                     </form>
                 </div>

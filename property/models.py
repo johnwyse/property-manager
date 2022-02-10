@@ -12,7 +12,7 @@ class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="senders")
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recipients")
     timestamp = models.DateTimeField(default=timezone.now)
-    image = models.URLField(blank=True, default='', max_length=1000)
+    image = models.ImageField(blank=True, upload_to='images/')
     text = models.TextField(max_length=1000, default=" ", null=False, blank=False)
     read = models.BooleanField(default=False)
 
@@ -51,7 +51,7 @@ class Unit(models.Model):
 
 class Issue(models.Model):
     unit_id = models.ForeignKey(Unit, on_delete=models.CASCADE, related_name="issues")
-    image = models.URLField(blank=True, default='', max_length=1000)
+    image = models.ImageField(blank=True, upload_to='images/')
     title = models.CharField(max_length=50)
     description = models.TextField(max_length=1000, null=False, blank=False)
     time_created = models.DateTimeField(default=timezone.now)
