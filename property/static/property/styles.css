@@ -120,11 +120,15 @@ h1 {
 .add_property {
     padding-top: 2rem;
     margin: auto;
-}
-
-#add_address, #add_image {
     width: 40%;
     min-width: 300px;
+    text-align: center;
+}
+
+#add_address, #add_image, #add_lease {
+    width: 40%;
+    min-width: 300px;
+    text-align: left;
 }
 
 .issue_input, .message_input {
@@ -164,6 +168,20 @@ h1 {
     border: maroon solid 2px;
     background-color: white;
     color: maroon;
+}
+
+.unit-listing {
+    padding: 0.5rem;
+    margin: auto;
+    width: 40%;
+    min-width: 350px;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    text-align: center;
+    border: maroon solid 2px;
+    background-color: white;
+    color: maroon;
+    box-shadow: maroon 5px 5px;
 }
 
 .show_send_a_message_form:hover, .show_report_an_issue_form:hover, .add-property-link:hover {

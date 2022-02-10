@@ -4,7 +4,7 @@
 
 {% if user == unit.manager %}
 
-    <div class="listed-item">
+    <div class="unit-listing">
 
         <p>{{unit}}</p>
 
@@ -15,7 +15,11 @@
         {% endif %}
 
         {% if unit.image %}
-        <img src="{{ unit.image }}" alt="{{ unit.address }}" height=200>
+        <img src="{{ unit.image.url }}" alt="{{ unit.address }}" height=200>
+        {% endif %}
+        {% if unit.lease %}
+        <br><br>
+        <p>View the lease document <a href="{{ unit.lease.url }}" target="_blank" rel="noopener noreferrer">here</a>.</p>
         {% endif %}
 
     </div>

@@ -33,8 +33,8 @@ class Unit(models.Model):
     manager = models.ForeignKey(User, on_delete=models.CASCADE, related_name="managers")
     tenant = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tenants", blank=True, null=True)
     address = models.CharField(max_length=200)
-    image = models.URLField(blank=True, default='', max_length=1000)
-    # lease_document = file upload of pdfs
+    image = models.ImageField(blank=True, upload_to='images/')
+    lease = models.FileField(blank=True, upload_to='leases/')
 
     def __str__(self):
         return f"{self.address}"    

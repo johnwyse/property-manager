@@ -80,7 +80,8 @@ def add_property(request):
             u = Unit(
                 manager = User.objects.get(username=request.user),
                 address = request.POST["address"],
-                image = request.POST["image"]
+                image = request.FILES["image"],
+                lease = request.FILES["lease"]
             )
         except ValueError:
             return render(request, "property/error.html", {
@@ -165,6 +166,8 @@ def unit(request, unit_id):
             "unit": unit
         })
 
+
+
 @login_required
 def messages(request):
     if request.method == "GET":
@@ -191,6 +194,8 @@ def messages(request):
     else:
         return render(request, 'property/error.html')
 
+
+
 @login_required
 def unit_messages(request, unit_id):
     if request.method == "GET":
@@ -209,10 +214,10 @@ def unit_messages(request, unit_id):
                 "messages": ordered_messages,
                 "unit": unit
             })
-
-
     else:
         return render(request, 'property/error.html')
+
+
 
 @login_required
 def issues(request):
@@ -251,11 +256,11 @@ def issues(request):
             return render(request, 'property/issues.html', {
                 "issues_info": zipped_issues_info
             })
-
     else:
         return render(request, 'property/error.html')
 
 
+@login_required
 def unit_issues(request, unit_id):
     if request.method == "GET":
         unit = Unit.objects.get(id=unit_id)
@@ -270,7 +275,7 @@ def unit_issues(request, unit_id):
         return render(request, 'property/error.html')
 
 
-
+@login_required
 def profile(request):
     if request.method == "GET":
         user = User.objects.get(username=request.user)
