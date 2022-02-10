@@ -107,7 +107,7 @@ def report_issue(request):
                 unit_id = Unit.objects.get(tenant=reporter),
                 title = request.POST["title"],
                 image = request.FILES["image"],
-                description = request.POST["description"],
+                description = request.POST["description"]
             )
         except ValueError:
             return render(request, "property/error.html", {

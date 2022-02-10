@@ -25,7 +25,7 @@
                 <button onclick="show_report_issue_form_inline()" id="show_report_issue_form">Report an issue to {{my_unit.manager.first_name}}</button>
                 
                 <div class="report-issue-form">
-                    <form action="{% url 'report_issue' %}" method="post">
+                    <form action="{% url 'report_issue' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="upload_form">
                             <input class="issue_input" id="issue_title" name="title" autocomplete=off type=text placeholder="Title">
@@ -45,7 +45,7 @@
                 <button onclick="show_send_message_form_inline()" id="show_send_message_form">Send {{my_unit.manager.first_name}} a message</button>
                 
                 <div id="send-message-form">
-                    <form action="{% url 'send_message' %}" method="post">
+                    <form action="{% url 'send_message' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="upload_form">
                             <textarea class="message_input" id="message_text" name="text" autocomplete=off type=text placeholder="Message" rows=6 cols=100></textarea>

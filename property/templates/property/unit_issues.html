@@ -12,7 +12,7 @@
         <button onclick="show_report_issue_form_block()" class="show_report_an_issue_form">Report an issue to {{unit.manager.first_name}}</button><br>
                     
         <div class="report_an_issue_form">
-            <form action="{% url 'report_issue' %}" method="post">
+            <form action="{% url 'report_issue' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="upload_form">
                     <input class="issue_input" id="issue_title" name="title" autocomplete=off type=text placeholder="Title">
@@ -36,10 +36,11 @@
             {% for issue in unresolved_issues %}
                 <div class="unresolved-item">
                     <p>Issue: {{issue.title}}</p>
-                    <p>Reported: {{issue.time_created}}</p>
+                    <p>Originally Reported: {{issue.time_created}}</p>
                     <p>Description: {{issue.description}}</p>
                     {% if issue.image %} 
                     <img src="{{ issue.image.url }}" alt="{{ issue.title }}" height=200>
+                    <br><br>
                     {% endif %}
                     {% if user.tenant %}
                     <form action="{% url 'change_resolved' issue.id %}" method="post">
@@ -59,7 +60,7 @@
             {% for issue in resolved_issues %}
                 <div class="resolved-item">
                     <p>Issue: {{issue.title}}</p>
-                    <p>Reported: {{issue.time_created}}</p>
+                    <p>Originally Reported: {{issue.time_created}}</p>
                     <p>Description: {{issue.description}}</p>
                     {% if issue.image %} 
                     <img src="{{ issue.image.url }}" alt="{{ issue.title }}" height=200>

@@ -12,7 +12,7 @@ class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="senders")
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recipients")
     timestamp = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(blank=True, upload_to='message_images/')
     text = models.TextField(max_length=1000, default=" ", null=False, blank=False)
     read = models.BooleanField(default=False)
 
@@ -33,7 +33,7 @@ class Unit(models.Model):
     manager = models.ForeignKey(User, on_delete=models.CASCADE, related_name="managers")
     tenant = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tenants", blank=True, null=True)
     address = models.CharField(max_length=200)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(blank=True, upload_to='unit_images/')
     lease = models.FileField(blank=True, upload_to='leases/')
 
     def __str__(self):
@@ -51,7 +51,7 @@ class Unit(models.Model):
 
 class Issue(models.Model):
     unit_id = models.ForeignKey(Unit, on_delete=models.CASCADE, related_name="issues")
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(blank=True, upload_to='issue_images/')
     title = models.CharField(max_length=50)
     description = models.TextField(max_length=1000, null=False, blank=False)
     time_created = models.DateTimeField(default=timezone.now)

@@ -9,7 +9,7 @@
     <button onclick="show_send_message_form_block()" class="show_send_a_message_form">Send a new message</button><br>
                     
     <div class="send_a_message_form">
-        <form action="{% url 'send_message' %}" method="post">
+        <form action="{% url 'send_message' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="upload_form">
                 <textarea class="message_input" id="message_text" name="text" autocomplete=off type=text placeholder="Message" rows=6 cols=100></textarea>
@@ -31,8 +31,8 @@
         <div class="original_message_content">
             <p class="timestamp">{{ message.timestamp }}</p>
             <p id="original_content_{{message.id}}"><strong>{{ message.sender.first_name }} {{ message.sender.last_name }}</strong>: {{ message.text }}</p>
-            {% if unit.image %}
-            <img src="{{ unit.image.url }}" alt="{{ unit.address }}" height=200>
+            {% if message.image %}
+            <img src="{{ message.image.url }}" alt="{{ message.title }}" height=200>
             {% endif %}
         </div>
 
