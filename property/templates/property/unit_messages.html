@@ -30,7 +30,13 @@
 
         <div class="original_message_content">
             <p class="timestamp">{{ message.timestamp }}</p>
-            <p id="original_content_{{message.id}}"><strong>{{ message.sender.first_name }} {{ message.sender.last_name }}</strong>: {{ message.text }}</p>
+            <p id="original_content_{{message.id}}">
+                {% if message.sender.profile_picture %}
+                    <img src="{{ message.sender.profile_picture.url }}" alt="{{ message.sender }}" height=50>
+                {% endif %}
+                
+                {{ message.sender.first_name }} {{ message.sender.last_name }}: {{ message.text }}
+            </p>
             {% if message.image %}
             <img src="{{ message.image.url }}" alt="{{ message.title }}" height=200>
             {% endif %}

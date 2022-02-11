@@ -260,6 +260,19 @@ h2 {
     display: block;
 }
 
+.profile_info {
+    padding: 1rem;
+    margin: auto;
+    width: 90%;
+    min-width: 300px;
+    margin-bottom: 2rem;
+    text-align: center;
+    border: white solid 2px;
+    background-color: var(--blue);
+    color: white;
+    display: block;
+}
+
 #send-message-form, .report-issue-form {
     display: none;
 }

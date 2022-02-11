@@ -6,17 +6,46 @@
     <h1>{{user.first_name}} {{user.last_name}}</h1>
 
     <br><br><br>
-    
-    <div class="listed-item">
-        
-        {% if user.tenant %}
-        <p>Tenant</p>
-        {% else %}
-        <p>Property Manager</p>
-        {% endif %}
-        <p>username: {{user}}</p>
-        <p>email: {{user.email}}</p>
 
+    <div class="in-line_container">
+        <div class="inline-child">
+            <div id="profile_picture">
+                {% if user.profile_picture %}
+                <img src="{{ user.profile_picture.url }}" alt="{{ user }}" width=50%>
+                <br><br>
+                {% endif %}
+            </div>
+            <div class="add_profile_picture_form">
+                <form action="{% url 'add_profile_picture' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="upload_form">
+                        <label for="image">Add/Update Profile Picture</label>
+                        <br>
+                        <input id="add_image" name="image" type="file">
+                        <br><br>
+                    </div>
+                    <input class="btn btn-warning" type="submit" value="Add/Update">
+                    <br><br>
+                </form>
+            </div>
+        </div>
+        <div class="inline-child">
+            <div class="profile_info">
+                
+                <p>username: {{user}}</p>
+                <p>email: {{user.email}}</p>
+                {% if user.tenant %}
+                    <p>Address: {{ units }}</p>
+                    <p>Property Manager: {{ units.manager.first_name }} {{units.manager.last_name }}</p>
+                {% else %}
+                    <p>Properties Managed:</p>
+                    {% for unit in units %}
+                        {{unit}}{% if unit.tenant %}({{unit.tenant}}){%else%}(currently empty){%endif%}<br>
+                    {% endfor %}
+                {% endif %}
+
+
+            </div>
+        </div>
     </div>
-
 {% endblock %}

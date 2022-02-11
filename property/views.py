@@ -178,6 +178,22 @@ def send_message(request):
         return HttpResponseRedirect(reverse("index"))
 
 
+@login_required
+def add_profile_picture(request):
+    if request.method == "POST":
+        if 'image' in request.FILES:
+            profile_picture = request.FILES["image"]
+        else:
+            profile_picture = None
+        user = User.objects.get(username=request.user)
+        user.profile_picture = profile_picture
+        user.save()
+        return HttpResponseRedirect(reverse("profile"))
+    else:
+        return HttpResponseRedirect(reverse("index"))
+
+            
+
 
 @login_required
 def unit(request, unit_id):
@@ -300,8 +316,19 @@ def unit_issues(request, unit_id):
 def profile(request):
     if request.method == "GET":
         user = User.objects.get(username=request.user)
+        if user.tenant:
+            try:
+                units = Unit.objects.get(tenant=user)
+            except ObjectDoesNotExist:
+                units = None
+        else:
+            try:
+                units = Unit.objects.filter(manager=user)
+            except ObjectDoesNotExist:
+                units = None
         return render(request, 'property/profile.html', {
-            "user": user
+            "user": user,
+            "units": units
         })
     else:
         return render(request, 'property/error.html')

@@ -6,6 +6,7 @@ from django.utils import timezone
 class User(AbstractUser):
     tenant = models.BooleanField(default=True)
     manager = models.BooleanField(default=False)
+    profile_picture = models.ImageField(blank=True, null=True, upload_to='profile_images/')
 
 
 class Message(models.Model):
