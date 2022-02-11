@@ -20,9 +20,15 @@ def index(request):
                 units = Unit.objects.filter(manager=request.user).order_by('address').order_by('-tenant')
             except ObjectDoesNotExist:
                 units = None
-            print(units)
+            
+            try:
+                unresolved_issue_count = Issue.objects.filter(unit_id__in=units).filter(resolved=False).count()
+            except ObjectDoesNotExist:
+                unresolved_issue_count = None
+
             return render(request, 'property/index.html', {
-                "units": units
+                "units": units,
+                "unresolved_issue_count": unresolved_issue_count
             })
         else:
             try:

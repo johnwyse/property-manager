@@ -4,9 +4,9 @@
 
 {% if user == unit.manager %}
 
+    <h1>{{unit}}</h1>
+    <br><br>
     <div class="unit-listing">
-
-        <p>{{unit}}</p>
 
         {% if unit.tenant %}
         <p>Tenant: {{unit.tenant.first_name}} {{unit.tenant.last_name}}</p>

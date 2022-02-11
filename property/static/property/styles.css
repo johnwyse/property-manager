@@ -272,7 +272,11 @@ h2 {
     color: white;
     display: block;
 }
-
+#unresolved_issue_count_bar {
+    width: 30%;
+    min-width: 250px;
+    margin: auto;
+}
 #send-message-form, .report-issue-form {
     display: none;
 }
