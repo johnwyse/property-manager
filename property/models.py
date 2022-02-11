@@ -12,7 +12,7 @@ class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="senders")
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recipients")
     timestamp = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(blank=True, upload_to='message_images/')
+    image = models.ImageField(blank=True, null=True, upload_to='message_images/')
     text = models.TextField(max_length=1000, default=" ", null=False, blank=False)
     read = models.BooleanField(default=False)
 

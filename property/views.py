@@ -76,12 +76,21 @@ def change_resolved(request, issue_id):
 @login_required
 def add_property(request):
     if request.method =="POST":
+        if 'image' in request.FILES:
+            image = request.FILES["image"]
+        else:
+            image = None
+
+        if 'lease' in request.FILES:
+            lease = request.FILES["lease"]
+        else:
+            lease = None
         try:
             u = Unit(
                 manager = User.objects.get(username=request.user),
                 address = request.POST["address"],
-                image = request.FILES["image"],
-                lease = request.FILES["lease"]
+                image = image,
+                lease = lease
             )
         except ValueError:
             return render(request, "property/error.html", {
@@ -102,11 +111,15 @@ def add_property(request):
 def report_issue(request):
     if request.method =="POST":
         reporter = User.objects.get(username=request.user)
+        if 'image' in request.FILES:
+            image = request.FILES["image"]
+        else:
+            image = None
         try:
             i = Issue(
                 unit_id = Unit.objects.get(tenant=reporter),
                 title = request.POST["title"],
-                image = request.FILES["image"],
+                image = image,
                 description = request.POST["description"]
             )
         except ValueError:
@@ -124,12 +137,16 @@ def send_message(request):
     if request.method =="POST":
         if request.user.tenant == True:
             my_unit = Unit.objects.get(tenant=request.user)
+            if 'image' in request.FILES:
+                image = request.FILES["image"]
+            else:
+                image = None
             try:
                 m = Message(
+                    image = image,
                     sender = User.objects.get(username=request.user),
                     recipient = User.objects.get(username=my_unit.manager),
-                    image = request.FILES["image"],
-                    text = request.POST["text"],
+                    text = request.POST["text"]
                 )
             except ValueError:
                 return render(request, "property/error.html", {
@@ -140,11 +157,15 @@ def send_message(request):
         else:
             # if manager is sending to tenant
             unit = Unit.objects.get(tenant=request.POST["tenant"])
+            if 'image' in request.FILES:
+                image = request.FILES["image"]
+            else:
+                image = None
             try:
                 m = Message(
                     sender = User.objects.get(username=request.user),
                     recipient = User.objects.get(username=User.objects.get(id=request.POST["tenant"])),
-                    image = request.FILES["image"],
+                    image = image,
                     text = request.POST["text"],
                 )
             except ValueError:
