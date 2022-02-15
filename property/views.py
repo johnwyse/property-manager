@@ -266,6 +266,7 @@ def unit_messages(request, unit_id):
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
 
+            # Render Unit Messages Page
             return render(request, 'property/unit_messages.html', {
                 "messages": page_obj,
                 "unit": unit
@@ -352,7 +353,33 @@ def profile(request):
     else:
         return render(request, 'property/error.html')
 
+# API Route 
+@csrf_exempt
+@login_required
+def edit_issue(request, issue_id):
+    
+    # Query for requested issue
+    try:
+        unit = Unit.objects.get(tenant=request.user)
+        issue = Issue.objects.get(unit_id=unit.id, id=issue_id)
+        print(issue)
+    except Issue.DoesNotExist:
+        return JsonResponse({"error": "Issue not found."}, status=404)
 
+    # Update issue description
+    if request.method == "PUT":
+        data = json.loads(request.body)
+        print(data)
+        issue.description = data["description"]
+        issue.save()
+        print(issue)
+        return HttpResponse(status=204)
+
+    # Edit must be via PUT
+    else:
+        return JsonResponse({
+            "error": "PUT request required."
+        }, status=400)
 
 
 

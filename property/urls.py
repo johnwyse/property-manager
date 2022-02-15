@@ -17,9 +17,9 @@ urlpatterns = [
     path("unit_messages/<int:unit_id>", views.unit_messages, name="unit_messages"),
     path("unit_issues/<int:unit_id>", views.unit_issues, name="unit_issues"),
     path("change_resolved/<int:issue_id>", views.change_resolved, name="change_resolved"),
-    path("add_profile_picture", views.add_profile_picture, name="add_profile_picture")
+    path("add_profile_picture", views.add_profile_picture, name="add_profile_picture"),
 
 
     # API Routes
-    #path("edit/<int:issue_id>", views.edit_issue, name="edit_issue"),
+    path("edit_issue/<int:issue_id>", views.edit_issue, name="edit_issue")
 ]

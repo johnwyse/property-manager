@@ -37,11 +37,27 @@
                 <div class="unresolved-item">
                     <p>Issue: {{issue.title}}</p>
                     <p>Originally Reported: {{issue.time_created}}</p>
-                    <p>Description: {{issue.description}}</p>
+                    
+                    <div id="original_issue_description_{{issue.id}}">
+                        <p id="current_issue_description_{{issue.id}}">Description: {{issue.description}}</p>
+                        <button onclick="show_issue_textarea('{{ issue.id }}')" id="edit_button" type="button" class="edit btn btn-info">Edit/Update</button>
+                        <br><br>
+                    </div>
+
+                    {% if user.tenant %}
+                    <div class="edit_issue" id="edit_issue_area_{{issue.id}}" style="display: none">
+                        <textarea class="edit_issue_textarea" id="updated_description_{{issue.id}}">{{ issue.description }}</textarea><br>
+                        <button onclick="update_issue('{{ issue.id }}')" type="button" id="update_button" class="update btn btn-info">Save</button>
+                        <input id="issue_id" type=hidden value="{{ issue.id }}">
+                        <br><br>
+                    </div>
+                    {% endif %}
+                    
                     {% if issue.image %} 
                     <img src="{{ issue.image.url }}" alt="{{ issue.title }}" height=200>
                     <br><br>
                     {% endif %}
+                    
                     {% if user.tenant %}
                     <form action="{% url 'change_resolved' issue.id %}" method="post">
                         {% csrf_token %}

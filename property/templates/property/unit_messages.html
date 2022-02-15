@@ -38,7 +38,9 @@
                 {{ message.sender.first_name }} {{ message.sender.last_name }}: {{ message.text }}
             </p>
             {% if message.image %}
-            <img src="{{ message.image.url }}" alt="{{ message.title }}" height=200>
+            <div class="message_image">
+                <img src="{{ message.image.url }}" alt="{{ message.title }}">
+            </div>
             {% endif %}
         </div>
 
@@ -51,6 +53,19 @@
                 <br><br>
             </div>
             <button onclick="show_textarea('{{ message.id }}')" id="edit_button" type="button" class="edit btn btn-warning">Edit</button>
+        </div>
+
+        <div class="read_status">
+            {% if message.read %}
+            Read
+            {% else %}
+            Unread
+            {% endif %}
+        </div>
+
+        <div class="delete_button" id="delete_message_{{message.id}}">
+            <button onclick="delete_message('{{ message.id }}')" type="button" id="delete_button" class="update btn btn-danger">Delete</button>
+            <input id="message_id" type=hidden value="{{ message.id }}">
         </div>
         {% endif %}
     </div>
