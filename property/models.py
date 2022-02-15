@@ -26,6 +26,8 @@ class Message(models.Model):
             "recipient": self.recipient,
             "text": self.text,
             "timestamp": self.timestamp,
+            "read": self.read,
+            "image": self.image
         }
 
 
@@ -45,7 +47,8 @@ class Unit(models.Model):
             "manager": self.manager,
             "tenant": self.tenant,
             "address": self.address,
-            "image": self.image
+            "image": self.image,
+            "lease": self.lease
         }
 
 
