@@ -74,10 +74,9 @@ function delete_message(message_id) {
     console.log("now beginning to hide div")
     
     // Hide div and animate slide up
-
-    const div_to_hide = document.querySelector(`#delete_button_${message_id}`)
-    console.log(div_to_hide.parentElement.parentElement)
-    div_to_hide.parentElement.parentElement.style.animationPlayState = 'running';
+    const button = document.querySelector(`#delete_button_${message_id}`);
+    let div_to_hide = button.parentElement.parentElement;
+    div_to_hide.style.animationPlayState = 'running';
 
 
 }
