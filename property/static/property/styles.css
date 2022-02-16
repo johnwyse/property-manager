@@ -74,6 +74,7 @@ h1 {
         overflow: visible;
         padding: 0.3rem;
         border: solid white 2px;
+        margin-bottom: 1rem;
 
     }
     50% {
@@ -82,6 +83,7 @@ h1 {
         overflow: visible;
         padding: 0.3rem;
         border: solid white 2px;
+        margin-bottom: 1rem;
     }
     100% {
         opacity: 0;
@@ -89,6 +91,7 @@ h1 {
         overflow: hidden;
         padding: 0rem;
         border: solid white 0px;
+        margin-bottom: 0rem;
     }
 }
 
