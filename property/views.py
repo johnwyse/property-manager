@@ -377,10 +377,27 @@ def edit_issue(request, issue_id):
 
     # Edit must be via PUT
     else:
-        return JsonResponse({
-            "error": "PUT request required."
-        }, status=400)
+        return JsonResponse({"error": "PUT request required."}, status=400)
 
+@csrf_exempt
+@login_required
+def delete_message(request, message_id):
+
+    # Query for requested issue
+    try:
+        message = Message.objects.get(pk=message_id)
+        print(message)
+    except Issue.DoesNotExist:
+        return JsonResponse({"error": "Message not found."}, status=404)
+
+    # Delete message
+    if request.method == "DELETE":
+        message.delete()
+        return HttpResponse(status=204)
+    
+    # Must be via DELETE
+    else:
+        return JsonResponse({"error": "DELETE request required."}, status=400)
 
 
 

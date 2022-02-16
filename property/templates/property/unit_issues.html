@@ -54,8 +54,10 @@
                     {% endif %}
                     
                     {% if issue.image %} 
-                    <img src="{{ issue.image.url }}" alt="{{ issue.title }}" height=200>
-                    <br><br>
+                    <div class="issue_image">
+                        <img src="{{ issue.image.url }}" alt="{{ issue.title }}" height=200>
+                        <br><br>
+                    </div>
                     {% endif %}
                     
                     {% if user.tenant %}
@@ -78,9 +80,12 @@
                     <p>Issue: {{issue.title}}</p>
                     <p>Originally Reported: {{issue.time_created}}</p>
                     <p>Description: {{issue.description}}</p>
+
                     {% if issue.image %} 
-                    <img src="{{ issue.image.url }}" alt="{{ issue.title }}" height=200>
-                    <br><br>
+                    <div class="issue_image">
+                        <img src="{{ issue.image.url }}" alt="{{ issue.title }}" height=200>
+                        <br><br>
+                    </div>
                     {% endif %}
                     {% if user.tenant %} 
                     <form action="{% url 'change_resolved' issue.id %}" method="post">

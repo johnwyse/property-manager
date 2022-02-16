@@ -21,5 +21,6 @@ urlpatterns = [
 
 
     # API Routes
-    path("edit_issue/<int:issue_id>", views.edit_issue, name="edit_issue")
+    path("edit_issue/<int:issue_id>", views.edit_issue, name="edit_issue"),
+    path("unit_messages/delete_message/<int:message_id>", views.delete_message, name="delete_message")
 ]

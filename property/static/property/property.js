@@ -56,3 +56,28 @@ function update_issue(id) {
     document.querySelector(`#edit_issue_area_${id}`).style.display = "none";
     document.querySelector(`#original_issue_description_${id}`).style.display = "block";
 }
+
+function delete_message(message_id) {
+    console.log("beginning to delete message")
+    console.log(message_id)
+
+    fetch('delete_message/' + message_id, {
+        method: 'DELETE',
+        body: JSON.stringify({
+            message_id: message_id
+        })
+    })
+    .catch(error => {
+        console.log("Error: " + error);
+    });
+
+    console.log("now beginning to hide div")
+    
+    // Hide div and animate slide up
+
+    const div_to_hide = document.querySelector(`#delete_button_${message_id}`)
+    console.log(div_to_hide.parentElement.parentElement)
+    div_to_hide.parentElement.parentElement.style.animationPlayState = 'running';
+
+
+}
