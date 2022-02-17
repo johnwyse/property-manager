@@ -8,7 +8,28 @@
 
     {% if user == unit.manager or user == unit.tenant %}
     
-        {% if user.tenant %}
+    {% if user.manager %}
+        <button onclick="show_send_message_form_block()" class="show_send_a_message_form">Send an issue update message to {{unit.tenant}}</button><br>
+                        
+        <div class="send_a_message_form">
+            <form action="{% url 'send_message' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="upload_form">
+                    <textarea class="message_input" id="message_text" name="text" autocomplete=off type=text placeholder="Message" rows=6 cols=100></textarea>
+                    <br><br>
+                    <label for="image">Image (optional)</label>
+                    <br>
+                    <input id="add_image" name="image" type="file">
+                    <input id="tenant_recipient" name="tenant" type=hidden value="{{unit.tenant.id}}"> 
+                </div>
+                <input class="btn btn-warning" type="submit" value="Send Message">
+            </form>
+        </div>
+    {% endif %}
+    
+
+    
+    {% if user.tenant %}
         <button onclick="show_report_issue_form_block()" class="show_report_an_issue_form">Report an issue to {{unit.manager.first_name}}</button><br>
                     
         <div class="report_an_issue_form">
@@ -39,9 +60,11 @@
                     <p>Originally Reported: {{issue.time_created}}</p>
                     
                     <div id="original_issue_description_{{issue.id}}">
-                        <p id="current_issue_description_{{issue.id}}">Description: {{issue.description}}</p>
+                        <p id="current_issue_description_{{issue.id}}">Description:<br>{{issue.description|linebreaksbr}}</p>
+                        {% if user.tenant %}
                         <button onclick="show_issue_textarea('{{ issue.id }}')" id="edit_button" type="button" class="edit btn btn-info">Edit/Update</button>
                         <br><br>
+                        {% endif %}
                     </div>
 
                     {% if user.tenant %}
@@ -79,7 +102,7 @@
                 <div class="resolved-item">
                     <p>Issue: {{issue.title}}</p>
                     <p>Originally Reported: {{issue.time_created}}</p>
-                    <p>Description: {{issue.description}}</p>
+                    <p>Description:<br>{{issue.description|linebreaksbr}}</p>
 
                     {% if issue.image %} 
                     <div class="issue_image">

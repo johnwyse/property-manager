@@ -52,7 +52,7 @@ function update_issue(id) {
     });
     console.log("update saved, now showing updated version")
 
-    document.querySelector(`#current_issue_description_${id}`).innerHTML = `Description: ${updated_description}`;
+    document.querySelector(`#current_issue_description_${id}`).innerHTML = `Description:<br>${updated_description}`;
     document.querySelector(`#edit_issue_area_${id}`).style.display = "none";
     document.querySelector(`#original_issue_description_${id}`).style.display = "block";
 }
