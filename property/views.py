@@ -358,6 +358,8 @@ def profile(request):
     else:
         return render(request, 'property/error.html')
 
+
+
 # API Route 
 @csrf_exempt
 @login_required
@@ -384,6 +386,8 @@ def edit_issue(request, issue_id):
     else:
         return JsonResponse({"error": "PUT request required."}, status=400)
 
+
+
 # API Route 
 @csrf_exempt
 @login_required
@@ -405,29 +409,28 @@ def delete_message(request, message_id):
     else:
         return JsonResponse({"error": "DELETE request required."}, status=400)
 
+
+
 # API Route 
 @csrf_exempt
 @login_required
 def mark_as_read(request, unit_id):
 
-    print(request)
-    print(unit_id)
     # Query for requested issue
     unit = Unit.objects.get(pk=unit_id)
     try:
         messages = Message.objects.filter(recipient=request.user).filter(recipient=unit.manager) | Message.objects.filter(recipient=request.user).filter(recipient=unit.tenant)
-        print(messages)
     except Message.DoesNotExist:
         return JsonResponse({"error": "Messages not found."}, status=404)
 
-    # Delete message
+    # Mark messages as read
     if request.method == "PUT":
         for message in messages:
             message.read = True
             message.save()
         return HttpResponse(status=204)
     
-    # Must be via GET
+    # Must be via PUT
     else:
         return JsonResponse({"error": "PUT request required."}, status=400)
 
