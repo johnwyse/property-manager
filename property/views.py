@@ -37,7 +37,6 @@ def index(request):
             except ObjectDoesNotExist: 
                 my_unit = None
                 empty_units = Unit.objects.filter(tenant=None)
-            print(my_unit)
             return render(request, 'property/index.html', {
                 "my_unit": my_unit,
                 "empty_units": empty_units
@@ -219,7 +218,6 @@ def messages(request):
                 unit_count = Unit.objects.filter(tenant=request.user).count()
             except ObjectDoesNotExist:
                 unit_count = 0
-            print(unit_count)
             if unit_count != 1:
                 return render(request, 'property/messages.html')
             else:
@@ -289,7 +287,6 @@ def issues(request):
                 unit_count = Unit.objects.filter(tenant=request.user).count()
             except ObjectDoesNotExist:
                 unit_count = 0
-            print(unit_count)
             if unit_count != 1:
                 return render(request, 'property/issues.html')
             else:
@@ -307,11 +304,7 @@ def issues(request):
                     unresolved_count = Issue.objects.filter(unit_id=unit.id).filter(resolved=False).count()
                 except ObjectDoesNotExist:
                     unresolved_count = None
-                print(unresolved_count)
                 unresolved_counts.append(unresolved_count)
-            
-            print(unresolved_counts)
-            print(units)
 
             zipped_issues_info = zip(unresolved_counts, units)
 
@@ -369,17 +362,14 @@ def edit_issue(request, issue_id):
     try:
         unit = Unit.objects.get(tenant=request.user)
         issue = Issue.objects.get(unit_id=unit.id, id=issue_id)
-        print(issue)
     except Issue.DoesNotExist:
         return JsonResponse({"error": "Issue not found."}, status=404)
 
     # Update issue description
     if request.method == "PUT":
         data = json.loads(request.body)
-        print(data)
         issue.description = data["description"]
         issue.save()
-        print(issue)
         return HttpResponse(status=204)
 
     # Edit must be via PUT
@@ -396,7 +386,6 @@ def delete_message(request, message_id):
     # Query for requested issue
     try:
         message = Message.objects.get(pk=message_id)
-        print(message)
     except Issue.DoesNotExist:
         return JsonResponse({"error": "Message not found."}, status=404)
 
