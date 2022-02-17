@@ -242,7 +242,10 @@ def messages(request):
 @login_required
 def unit_messages(request, unit_id):
     if request.method == "GET":
-        unit = Unit.objects.get(id=unit_id)
+        try:
+            unit = Unit.objects.get(id=unit_id)
+        except ObjectDoesNotExist:
+            return render(request, 'property/error.html')
         if request.user.manager:     
             messages = Message.objects.filter(sender=request.user).filter(recipient=unit.tenant) | Message.objects.filter(recipient=request.user).filter(sender=unit.tenant)
             ordered_messages = Message.objects.filter(id__in=messages).order_by('-timestamp')
@@ -255,7 +258,8 @@ def unit_messages(request, unit_id):
             # Render Unit Messages Page
             return render(request, 'property/unit_messages.html', {
                 "messages": page_obj,
-                "unit": unit
+                "unit": unit,
+                "data": unit_id
             })
         else:
             messages = Message.objects.filter(sender=request.user).values_list('id') | Message.objects.filter(recipient=request.user).values_list('id')
@@ -269,7 +273,8 @@ def unit_messages(request, unit_id):
             # Render Unit Messages Page
             return render(request, 'property/unit_messages.html', {
                 "messages": page_obj,
-                "unit": unit
+                "unit": unit,
+                "data": unit_id
             })
     else:
         return render(request, 'property/error.html')
@@ -379,6 +384,7 @@ def edit_issue(request, issue_id):
     else:
         return JsonResponse({"error": "PUT request required."}, status=400)
 
+# API Route 
 @csrf_exempt
 @login_required
 def delete_message(request, message_id):
@@ -399,6 +405,31 @@ def delete_message(request, message_id):
     else:
         return JsonResponse({"error": "DELETE request required."}, status=400)
 
+# API Route 
+@csrf_exempt
+@login_required
+def mark_as_read(request, unit_id):
+
+    print(request)
+    print(unit_id)
+    # Query for requested issue
+    unit = Unit.objects.get(pk=unit_id)
+    try:
+        messages = Message.objects.filter(recipient=request.user).filter(recipient=unit.manager) | Message.objects.filter(recipient=request.user).filter(recipient=unit.tenant)
+        print(messages)
+    except Message.DoesNotExist:
+        return JsonResponse({"error": "Messages not found."}, status=404)
+
+    # Delete message
+    if request.method == "PUT":
+        for message in messages:
+            message.read = True
+            message.save()
+        return HttpResponse(status=204)
+    
+    # Must be via GET
+    else:
+        return JsonResponse({"error": "PUT request required."}, status=400)
 
 
 

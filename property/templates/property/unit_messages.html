@@ -1,7 +1,7 @@
 {% extends "property/layout.html" %}
+{% load static %}
 
 {% block body %}
-
 <h1>Messages</h1>
 
 {% if user.is_authenticated and request.user == unit.manager or request.user == unit.tenant%}
@@ -103,5 +103,12 @@
 
 {% endif %}
 
+
+{% endblock %}
+
+
+{% block script %}
+    {{ data|json_script:"unit_id" }}
+    <script src="{% static 'property/readmessages.js' %}"></script>
 
 {% endblock %}
