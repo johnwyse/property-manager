@@ -1,3 +1,19 @@
+document.addEventListener('DOMContentLoaded', function() {
+    
+    document.getElementById("issues_dropdown_button").addEventListener('click', () => {
+
+        console.log("dropdown button clicked")
+        if (document.getElementById("dropdown_toggle").style.display === "none") {
+            console.log("opening")
+            document.getElementById("dropdown_toggle").style.display = "block";
+        } else {
+            console.log("closing")
+            document.getElementById("dropdown_toggle").style.display = "none";
+        }
+        })
+
+})
+
 function show_issue_textarea(id) {
     console.log("beginning to show issue textarea")
     console.log(id)

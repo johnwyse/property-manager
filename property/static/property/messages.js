@@ -13,8 +13,21 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Error:', error)
       });
     
-      return false
+    
 
+    document.getElementById("dropdown_button").addEventListener('click', () => {
+
+      console.log("dropdown button clicked")
+      if (document.getElementById("dropdown_toggle").style.display === "none") {
+          console.log("opening")
+          document.getElementById("dropdown_toggle").style.display = "block";
+      } else {
+          console.log("closing")
+          document.getElementById("dropdown_toggle").style.display = "none";
+      }
+      })
+
+    return false
 })
 
 function delete_message(message_id) {

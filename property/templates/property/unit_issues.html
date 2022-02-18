@@ -10,9 +10,9 @@
     {% if user == unit.manager or user == unit.tenant %}
     
     {% if user.manager %}
-        <button onclick="show_send_message_form_block()" class="show_send_a_message_form">Send an issue update message to {{unit.tenant}}</button><br>
+        <button id="issues_dropdown_button" class="show_send_a_message_form">Send an issue update message to {{unit.tenant}}</button><br>
                         
-        <div class="send_a_message_form">
+        <div class="send_a_message_form" id="dropdown_toggle" style="display: none">
             <form action="{% url 'send_message' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="upload_form">
@@ -31,9 +31,9 @@
 
     
     {% if user.tenant %}
-        <button onclick="show_report_issue_form_block()" class="show_report_an_issue_form">Report an issue to {{unit.manager.first_name}}</button><br>
+        <button id="issues_dropdown_button" class="show_report_an_issue_form">Report an issue to {{unit.manager.first_name}}</button><br>
                     
-        <div class="report_an_issue_form">
+        <div id="dropdown_toggle" class="report_an_issue_form" style="display: none">
             <form action="{% url 'report_issue' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="upload_form">
@@ -134,5 +134,5 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'property/edit_issue.js' %}"></script>
+    <script src="{% static 'property/issues.js' %}"></script>
 {% endblock %}

@@ -6,9 +6,9 @@
 
 {% if user.is_authenticated and request.user == unit.manager or request.user == unit.tenant%}
 
-    <button onclick="show_send_message_form_block()" class="show_send_a_message_form">Send a new message</button><br>
+    <button id="dropdown_button" class="show_send_a_message_form">Send a new message</button><br>
                     
-    <div class="send_a_message_form">
+    <div id="dropdown_toggle" class="send_a_message_form" style="display: none">
         <form action="{% url 'send_message' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="upload_form">
