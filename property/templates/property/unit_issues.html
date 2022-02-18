@@ -1,4 +1,5 @@
 {% extends "property/layout.html" %}
+{% load static %}
 
 {% block body %}
 
@@ -130,4 +131,8 @@
 <br><br>You don't have permission to view this page.
 {% endif %}
 
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'property/edit_issue.js' %}"></script>
 {% endblock %}

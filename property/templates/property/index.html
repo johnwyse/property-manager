@@ -1,4 +1,5 @@
 {% extends "property/layout.html" %}
+{% load static %}
 
 {% block body %}
 
@@ -22,9 +23,9 @@
 
         <div class="inline-container">
             <div class="inline-child">
-                <button onclick="show_report_issue_form_inline()" id="show_report_issue_form">Report an issue to {{my_unit.manager.first_name}}</button>
+                <button id="show_report_issue_form">Report an issue to {{my_unit.manager.first_name}}</button>
                 
-                <div class="report-issue-form">
+                <div class="report-issue-form" id="report_issue_toggle" style="display: none">
                     <form action="{% url 'report_issue' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="upload_form">
@@ -42,9 +43,9 @@
             </div>
 
             <div class="inline-child">
-                <button onclick="show_send_message_form_inline()" id="show_send_message_form">Send {{my_unit.manager.first_name}} a message</button>
+                <button id="show_send_message_form">Send {{my_unit.manager.first_name}} a message</button>
                 
-                <div id="send-message-form">
+                <div class="send-message-form" id="send_message_toggle" style="display: none">
                     <form action="{% url 'send_message' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="upload_form">
@@ -126,4 +127,8 @@
 
     {% endif %}
 
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'property/index.js' %}"></script>
 {% endblock %}

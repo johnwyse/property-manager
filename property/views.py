@@ -401,8 +401,10 @@ def mark_as_read(request, unit_id):
 
     # Query for requested issue
     unit = Unit.objects.get(pk=unit_id)
+    print(unit)
     try:
-        messages = Message.objects.filter(recipient=request.user).filter(recipient=unit.manager) | Message.objects.filter(recipient=request.user).filter(recipient=unit.tenant)
+        messages = Message.objects.filter(recipient=request.user).filter(sender=unit.tenant).filter(read=False) | Message.objects.filter(recipient=request.user).filter(sender=unit.manager).filter(read=False)
+        print(f"messages to be marked as read are {messages}")
     except Message.DoesNotExist:
         return JsonResponse({"error": "Messages not found."}, status=404)
 
@@ -437,11 +439,9 @@ def get_notifications(request):
             unresolved_issues_count = 0
             for unit in units:
                 unit_unresolved_issues_count = Issue.objects.filter(unit_id=unit.id).filter(resolved=False).count()
-                print(f"unresolved issue count at this unit is {unit_unresolved_issues_count}")
                 unresolved_issues_count += unit_unresolved_issues_count
             
-            print("total")
-            print(unresolved_issues_count)
+            print(f"unresolved : {unresolved_issues_count}")
         
         else:
             unread_messages_count = Message.objects.filter(recipient=request.user).filter(read=False).count()
