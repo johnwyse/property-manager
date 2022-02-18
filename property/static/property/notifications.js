@@ -20,10 +20,3 @@ document.addEventListener('DOMContentLoaded', function() {
     return false
 
 })
-
-function show_send_message_form_block() {
-    console.log("send message button clicked")
-
-    document.querySelector(".send_a_message_form").style.display = "block";
-}
-
