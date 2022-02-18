@@ -101,18 +101,6 @@
         
         {% else %}
 
-            <div id="unresolved_issue_count_bar">
-            {% if unresolved_issue_count %}
-                <div class="alert alert-warning" role="alert">
-                    <a href="{% url 'issues' %}" class="alert-link">You have {{unresolved_issue_count}} unresolved issues</a>.
-                </div>
-            {% else %}
-                <div class="alert alert-success" role="alert">
-                    You have 0 unresolved issues!
-                </div>
-            {% endif %}
-            </div>
-
             <h1>My Properties</h1>
 
             <a href="{% url 'add_property' %}">

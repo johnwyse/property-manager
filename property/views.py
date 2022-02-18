@@ -20,15 +20,9 @@ def index(request):
                 units = Unit.objects.filter(manager=request.user).order_by('address').order_by('-tenant')
             except ObjectDoesNotExist:
                 units = None
-            
-            try:
-                unresolved_issue_count = Issue.objects.filter(unit_id__in=units).filter(resolved=False).count()
-            except ObjectDoesNotExist:
-                unresolved_issue_count = None
 
             return render(request, 'property/index.html', {
                 "units": units,
-                "unresolved_issue_count": unresolved_issue_count
             })
         else:
             try:
@@ -424,9 +418,45 @@ def mark_as_read(request, unit_id):
         return JsonResponse({"error": "PUT request required."}, status=400)
 
 
+# API Route 
+@csrf_exempt
+@login_required
+def get_notifications(request):
+
+    if request.method == "GET":
+        if request.user.manager:
+            # unread message count
+            unread_messages_count = Message.objects.filter(recipient=request.user).filter(read=False).count()
+            print(f"unread messages: {unread_messages_count}")
+            
+            # unresolved issues count
+            try:
+                units = Unit.objects.filter(manager=request.user)
+            except ObjectDoesNotExist:
+                units = None
+            unresolved_issues_count = 0
+            for unit in units:
+                unit_unresolved_issues_count = Issue.objects.filter(unit_id=unit.id).filter(resolved=False).count()
+                print(f"unresolved issue count at this unit is {unit_unresolved_issues_count}")
+                unresolved_issues_count += unit_unresolved_issues_count
+            
+            print("total")
+            print(unresolved_issues_count)
+        
+        else:
+            unread_messages_count = Message.objects.filter(recipient=request.user).filter(read=False).count()
+            unresolved_issues_count = 0
+        
+        data = {
+            "unread": unread_messages_count,
+            "unresolved": unresolved_issues_count
+        }
+
+        return JsonResponse(data, status=200)
 
 
-
+    else: 
+        return JsonResponse({"error": "GET request required."}, status=400)
 
 
 
