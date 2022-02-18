@@ -9,13 +9,19 @@
     You must claim an address and property manager before you can send or recieve messages.
 
 {% else %}
-    {% if units %}   
+    {% if messages_info %}   
         <div class="list-container">
 
-            {% for unit in units %}
+            {% for count, unit in messages_info %}
             <a href="{% url 'unit_messages' unit.id %}">
                 <div class="listed-item-link">
                     Messages with {{unit.tenant.first_name}} {{unit.tenant.last_name}} ({{unit}})
+                    <br>
+                    {% if count %}
+                    {{count}} unread message(s)
+                    {% else %}
+                    No new messages
+                    {% endif %}
                 </div>
             </a>
                 

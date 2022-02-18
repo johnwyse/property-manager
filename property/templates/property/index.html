@@ -130,5 +130,7 @@
 {% endblock %}
 
 {% block script %}
+    {% if user.tenant %}
     <script src="{% static 'property/index.js' %}"></script>
+    {% endif %}
 {% endblock %}

@@ -223,8 +223,20 @@ def messages(request):
                 units = Unit.objects.filter(manager=request.user).exclude(tenant=None).order_by('-tenant')
             except ObjectDoesNotExist:
                 units = None
+            
+            # get number of unread messages to display
+            unread_counts = []
+            for unit in units:
+                try:
+                    unread_count = Message.objects.filter(read=False).filter(sender=unit.tenant).filter(recipient=request.user).count()
+                except ObjectDoesNotExist:
+                    unread_count = 0
+                unread_counts.append(unread_count)
+            
+            zipped_messages_info = zip(unread_counts, units)
+            
             return render(request, 'property/messages.html', {
-                "units": units
+                "messages_info": zipped_messages_info
             })
     else:
         return render(request, 'property/error.html')
