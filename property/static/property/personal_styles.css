@@ -1,0 +1,22 @@
+:root {
+    --main: rgb(9, 8, 65);
+  }
+
+body {
+    background-color: seashell;
+    color: var(--main);
+    text-align: center;
+    font-family: Tahoma, sans-sarif;
+}
+
+.nav-item > button {
+    background-color: transparent;
+    border: none;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    color:rgb(5, 9, 71);
+    font-size: 1.2rem;
+}
+#header {
+    padding: 3rem;
+}

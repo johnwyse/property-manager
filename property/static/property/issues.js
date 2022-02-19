@@ -32,7 +32,7 @@ function update_issue(id) {
     console.log(updated_description)
 
     // Fetch and save updated content
-    fetch('/edit_issue/' + id, {
+    fetch('/property/edit_issue/' + id, {
         method: 'PUT',
         body: JSON.stringify({
             description: updated_description

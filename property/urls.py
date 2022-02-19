@@ -22,7 +22,7 @@ urlpatterns = [
 
     # API Routes
     path("edit_issue/<int:issue_id>", views.edit_issue, name="edit_issue"),
-    path("unit_messages/delete_message/<int:message_id>", views.delete_message, name="delete_message"),
+    path("delete_message/<int:message_id>", views.delete_message, name="delete_message"),
     path("mark_as_read/<int:unit_id>", views.mark_as_read, name="mark_as_read"),
     path("get_notifications", views.get_notifications, name="get_notifications")
 ]

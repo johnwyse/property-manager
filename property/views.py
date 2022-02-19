@@ -12,6 +12,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from .models import User, Issue, Message, Unit
 
+def home(request):
+    return render(request, 'property/personal_index.html')
 
 def index(request):
     if request.user.is_authenticated:
