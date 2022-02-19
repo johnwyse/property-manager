@@ -2,14 +2,14 @@
     --main: rgb(9, 8, 65);
   }
 
-body {
+  body {
     background-color: seashell;
     color: var(--main);
     text-align: center;
     font-family: Tahoma, sans-sarif;
 }
 
-.nav-item > button {
+.nav-item > a {
     background-color: transparent;
     border: none;
     margin-left: 1rem;
@@ -19,4 +19,40 @@ body {
 }
 #header {
     padding: 3rem;
+}
+
+.inline-left {
+    display: inline-block;
+    background-color: orangered;
+    width: 45%;
+    vertical-align: top;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.inline-right {
+    display: inline-block;
+    background-color: plum;
+    width: 45%;
+    vertical-align: top;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.binline-small {
+    display: inline-block;
+    background-color: green;
+    width: 90%;
+    vertical-align: top;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.binline-medium {
+    display: inline-block;
+    background-color: blue;
+    width: 30%;
+    vertical-align: top;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }

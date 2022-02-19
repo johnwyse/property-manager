@@ -9,80 +9,98 @@
         <link href="{% static 'property/personal_styles.css' %}" rel="stylesheet">
     </head>
     <body>
+        <div class="inline-container">
 
-        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-transparent">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse justify-content-center" id="navbarTogglerDemo02">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <button id="bio-nav" class="nav-link" data-page="bio">Bio</button>
-                    </li>
-                    <li class="nav-item">
-                        <button id="portfolio-nav" class="nav-link" data-page="portfolio">Portfolio</button>
-                    </li>
-                    <li class="nav-item">
-                        <button id="resume-nav" class="nav-link" data-page="resume">Resume</button>
-                    </li>
-                    <li class="nav-item">
-                        <button id="contact-nav" class="nav-link" data-page="contact">Contact</button>
-                    </li>
-                </ul>
+            <div class="inline-left" id="header">
+                <h1>John Wyse</h1>
+                <h4>Software Developer</h4>
+
+                <nav class="navbar navbar-expand-sm justify-content-center navbar-light bg-transparent">
+                    
+                    <div class="justify-content-center">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a href="https://github.com/johnwyse" class="nav-link" target="_blank">GitHub</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://www.linkedin.com/in/johnwyse/" class="nav-link" target="_blank">LinkedIn</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'resume' %}" class="nav-link" target="_blank">Resume</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="inline-small" id="contact" >
+                    <h2>Contact Info</h2>
+                    <p>john.w.wyse@gmail.com</p>
+                    <p>615-509-3943</p>
+                </div>
+                <div class="inline-small" id="bio" >
+                    <h2>Bio</h2>
+                    <p>
+                        I am a former high school math and physics teacher and self-taught programmer. My passion for programming began when I volunteered to facilitate a computer science elective. This fall I began teaching myself to code in earnest through Harvard's CS50 coursework and CodeAcademy while spending time at home with my newborn daughter. I believe my portfolio demonstrates a strong ability to learn and solve problems, while my teaching experience has sharpened my communication, leadership, and time management skills. 
+                    </p>
+                </div>
+
+            </div> 
+
+            <div id="portfolio" class="inline-right">
+
+                <h2>Portfolio</h2>
+                
+                <div class="inline-medium" id="property">
+                    <h3> Property Manager </h3>
+                    <p> A web app that connects property managers and tenants. Users can send messages, report and solve maintenance issues, and view rental documents. </p>
+                    <p> Technologies </p>
+                    <ul>
+                        <li>Backend: Python</li>
+                        <li>Frontend: JavaScript, HTML/CSS, Bootstrap</li>
+                        <li>Framework: Django</li>
+                    </ul>
+                    <div class="view_project">
+                        <a href="{% url 'index' %}" target="_blank">View Project</a>
+                    </div>
+                    <div class="view_on_github">
+                        <a href="https://github.com/johnwyse/property-manager" target="_blank">View Code on Github</a>
+                    </div>
+                    <div class="demo_video">
+                        <a href="https://youtube.com" target="_blank">Watch Video Demo</a>
+                    </div>
+                </div>
+
+                <div class="inline-medium" id="connect">
+                    <h3> Connect </h3>
+                    <p> A Connect Four-style game that allows users to play in the terminal on different size boards.  </p>
+                    <p> Technology: Python </p>
+                    <div class="view_project">
+                        <a href="https://replit.com/@JohnWyse/Connect?v=1" target="_blank">View Project</a>
+                    </div>
+                    <div class="view_on_github">
+                        <a href="https://github.com/johnwyse/Connect" target="_blank">View Code on Github</a>
+                    </div>
+                    <div class="demo_video">
+                        <a href="https://youtu.be/R0VNGwQ04R4" target="_blank">Watch Video Demo</a>
+                    </div>
+                </div>
+
+                <div class="inline-medium" id="physics">
+                    <h3> Physics </h3>
+                    <p> A mobile-friendly, single-page web app with references, examples, calculators, and practice problems (that give feedback) for physics topics. </p>
+                    <p> Technologies: JavaScript, HTML, CSS </p>
+                    <div class="view_project">
+                        <a href="https://physics.johnwyse.repl.co/" target="_blank">View Project</a>
+                    </div>
+                    <div class="view_on_github">
+                        <a href="https://github.com/johnwyse/Wyse-Physics" target="_blank">View Code on Github</a>
+                    </div>
+                </div>
+                
             </div>
-        </nav>
-
-        <div id="header">
-            <h1>John Wyse</h1>
-            <h3>Software Developer</h3>
-        </div>
-
-        <div id="bio" >
-            <p>
-            
-            </p>
-
-            <a href="https://github.com/johnwyse" target="_blank">GitHub</a>
-            <br>
-            <a href="https://www.linkedin.com/in/johnwyse/" target="_blank">LinkedIn</a>
 
         </div>
 
-        <div id="portfolio">
-            <h1>Portfolio</h1>
-            <div class="portfolio-item" id="property">
-                <h3> Property Manager </h3>
-                <p> A web app that connects property managers and tenants. </p>
-                <p> Technologies </p>
-                <ul>
-                    <li>Backend: Python</li>
-                    <li>Frontend: JavaScript, HTML/CSS, Bootstrap</li>
-                    <li>Framework: Django</li>
-                </ul>
-                <div class="view_project">
-                    <a href="{% url 'index' %}" target="_blank">View Project</a>
-                </div>
-                <div class="view_on_github">
-                    <a href="https://github.com/johnwyse/property-manager" target="_blank">View Code on Github</a>
-                </div>
-                <div class="demo_video">
-                    <a href="https://youtube.com" target="_blank">Watch Video Demo</a>
-                </div>
-            </div>
-        </div>
-
-        <div id="resume" style="display: none">
-            <p>
-            Here is my bio
-            </p>
-        </div>
-
-        <div id="contact" style="display: none">
-            <p>
-            Here is my contact info
-            </p>
-        </div>
 
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
