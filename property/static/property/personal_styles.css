@@ -7,8 +7,22 @@
     color: var(--main);
     text-align: center;
     font-family: Tahoma, sans-sarif;
+    margin: 2rem;
 }
 
+#header > p {
+    text-align: center;
+}
+
+h3 {
+    margin-bottom: 1rem;
+}
+#contact > p {
+    text-align: center;
+}
+p, ul {
+    text-align: left;
+}
 .nav-item > a {
     background-color: transparent;
     border: none;
@@ -17,42 +31,88 @@
     color:rgb(5, 9, 71);
     font-size: 1.2rem;
 }
-#header {
-    padding: 3rem;
+
+.inline-left > div, .inline-right > div, .inline-right > h1 {
+    margin-top: 1.5rem;
 }
 
 .inline-left {
-    display: inline-block;
-    background-color: orangered;
-    width: 45%;
-    vertical-align: top;
-    margin-left: 1rem;
-    margin-right: 1rem;
-}
-
-.inline-right {
-    display: inline-block;
-    background-color: plum;
-    width: 45%;
-    vertical-align: top;
-    margin-left: 1rem;
-    margin-right: 1rem;
-}
-
-.binline-small {
-    display: inline-block;
-    background-color: green;
     width: 90%;
+    margin: auto;
     vertical-align: top;
-    margin-left: 1rem;
-    margin-right: 1rem;
 }
 
-.binline-medium {
-    display: inline-block;
-    background-color: blue;
-    width: 30%;
+.inline-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    width: 95%;
+    margin: auto;
     vertical-align: top;
+}
+
+#bio {
+    max-width: 800px;
+    margin: auto;
+}
+
+.inline-medium {
+    width: 25vw;
+    min-width: 400px;
+    margin: justify;
     margin-left: 1rem;
     margin-right: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: solid gray 3px;
+    border-radius: 10px;
+    vertical-align: top;
+    flex: 1 1 auto;
+}
+
+.view_project, .view_on_github, .demo_video {
+    margin: auto;
+    background-color: seashell;
+    border: solid black 1px;
+    border-radius: 5px;
+    width: 8rem;
+    margin-top: 0.5rem;
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+}
+.view_project:hover, .view_on_github:hover, .demo_video:hover {
+    background-color: slategray;
+
+}
+
+a {
+    text-decoration: none !important;
+}
+a:hover {
+    text-decoration: none !important;
+}
+
+#property {
+    background-size: cover;
+    background-position: center;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeucilq2NOZ9dINgj7heALZIxIRNUmFmDXk1L6pUfdKH7I-c4vjECl7esIMtWoaYEDewA&usqp=CAU");
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, .7);
+    color: white;
+}
+
+#connect {
+    background-size: cover;
+    background-position: center;
+    background-image: url("https://previews.123rf.com/images/kebox/kebox1507/kebox150700248/42827058-traditional-dotted-wallpaper-with-red-and-blue-dots-and-white-background.jpg");
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, .7);
+    color: white;
+}
+
+#physics {
+    background-size: cover;
+    background-position: center;
+    background-image: url("https://hdwallpaperim.com/wp-content/uploads/2017/08/31/165681-minimalism-blue_background-glass-ball-ropes-broken-sphere-Isaac_Newton-physics.jpg");
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, .7);
+    color: white;
 }
