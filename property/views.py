@@ -259,10 +259,14 @@ def unit_messages(request, unit_id):
             messages = Message.objects.filter(sender=request.user).filter(recipient=unit.tenant) | Message.objects.filter(recipient=request.user).filter(sender=unit.tenant)
             ordered_messages = Message.objects.filter(id__in=messages).order_by('-timestamp')
             
-            #Pagination
-            paginator = Paginator(ordered_messages, 10) # Show 10 messages per page.
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
+            if messages.count() > 10:
+                #Pagination
+                paginator = Paginator(ordered_messages, 10) # Show 10 messages per page.
+                page_number = request.GET.get('page')
+                page_obj = paginator.get_page(page_number)
+            else:
+                page_obj = ordered_messages
+        
             
             # Render Unit Messages Page
             return render(request, 'property/unit_messages.html', {
@@ -274,10 +278,13 @@ def unit_messages(request, unit_id):
             messages = Message.objects.filter(sender=request.user).values_list('id') | Message.objects.filter(recipient=request.user).values_list('id')
             ordered_messages = Message.objects.filter(id__in=messages).order_by('-timestamp')
             
-            #Pagination
-            paginator = Paginator(ordered_messages, 10) # Show 10 messages per page.
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
+            if messages.count() > 10:
+                # Pagination
+                paginator = Paginator(ordered_messages, 10) # Show 10 messages per page.
+                page_number = request.GET.get('page')
+                page_obj = paginator.get_page(page_number)
+            else:
+                page_obj = ordered_messages
 
             # Render Unit Messages Page
             return render(request, 'property/unit_messages.html', {
