@@ -128,9 +128,28 @@ h1 {
     animation-play-state: paused;
 }
 
-.delete_buttons, .read_status {
+.listed-item-messages-False > .message_contents {
+    margin-left: auto;
+    margin-right: 1rem;
+    text-align: right;
+}
+
+.listed-item-messages-True > .message_contents {
+    margin-left: 1rem;
+    margin-right: auto;
+    text-align: left;
+}
+
+.listed-item-messages-True > .delete_buttons, .listed-item-messages-True > .read_status {
     text-align: left;
     padding-left: 1rem;
+    padding-bottom: 1rem;
+    font-style: italic;
+}
+
+.listed-item-messages-False > .delete_buttons, .listed-item-messages-False > .read_status {
+    text-align: right;
+    padding-right: 1rem;
     padding-bottom: 1rem;
     font-style: italic;
 }
