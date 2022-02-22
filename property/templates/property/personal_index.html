@@ -7,6 +7,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link href="{% static 'property/personal_styles.css' %}" rel="stylesheet">
+        <link rel="shortcut icon" type="image/png" href="{% static 'property/favicon2.png' %}"/>
+        <!-- By Emoji One, https://creativecommons.org/licenses/by-sa/4.0 -->
     </head>
     <body>
 
@@ -35,25 +37,26 @@
 
                 <div id="bio" >
                     <p>
-                        I am a former high school math and physics teacher and self-taught programmer. My passion for programming began when I volunteered to facilitate a computer science elective. Since leaving the classroom in June 2021, I have taught myself to code through Harvard's CS50 coursework (CS50 and CS50W) and Codecademy. Now, I'm ready to begin a full-time CS career. I believe my portfolio demonstrates a strong ability to learn and solve problems independently. I learned each skill and language without the help of a bootcamp or access to instructors. Furthermore, my teaching experience has sharpened my communication, leadership, and time management skills. Hire me!
+                        I am a former high school math and physics teacher and self-taught programmer. My passion for programming began when I volunteered to facilitate a computer science elective for 10th graders. Since leaving the classroom in June 2021, I have taught myself to code through Harvard's CS50 coursework (CS50 and CS50W) and Codecademy. Now, I'm ready to begin a full-time CS career. I believe my portfolio demonstrates a strong ability to learn and solve problems independently. I learned each skill and language without the help of a bootcamp or access to instructors. Furthermore, my teaching experience has sharpened my communication, leadership, and time management skills. Hire me!
                     </p>
                 </div>
 
             </div> 
 
-            <h1>Projects</h1>
+            <h2>Projects</h2>
             
             <div id="portfolio" class="flex">
 
                 <div class="project" id="property">
                     <h5> Property Manager </h5>
                     <p> A web app that connects property managers and tenants. Users can send messages, share photos, report and solve maintenance issues, and view rental documents. </p>
-                    <p> Technologies: </p>
-                    <ul>
-                        <li>Backend: Python</li>
-                        <li>Frontend: JavaScript, HTML/CSS, Bootstrap</li>
-                        <li>Framework: Django</li>
-                    </ul>
+                    <p> Technologies: 
+                        <ul>
+                            <li>Backend: Python, SQLite</li>
+                            <li>Frontend: JavaScript, HTML/CSS, Bootstrap</li>
+                            <li>Framework: Django</li>
+                        </ul>
+                    </p>
                     <div class="project-link">
                         <a href="{% url 'index' %}" target="_blank">View Project</a>
                     </div>

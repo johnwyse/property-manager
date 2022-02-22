@@ -7,7 +7,7 @@
     color: var(--main);
     text-align: center;
     font-family: Tahoma, sans-sarif;
-    margin: 2rem;
+    margin: 1rem;
 }
 
 #header > p {
@@ -48,13 +48,13 @@ p, ul {
 .flex {
     display: flex;
     flex-wrap: wrap;
-    width: 95%;
+    width: 100%;
     margin: auto;
     vertical-align: top;
 }
 
 #bio {
-    max-width: 800px;
+    max-width: 900px;
     margin: auto;
 }
 
@@ -77,6 +77,10 @@ p, ul {
     color: white;
 }
 
+.project > p {
+    font-size: 0.9rem;
+}
+
 .project-link {
     margin: auto;
     background-color: seashell;
@@ -85,12 +89,10 @@ p, ul {
     width: 8rem;
     margin-top: 0.5rem;
     display: inline-block;
-    text-decoration: none !important;
     color: white;
 }
 .project-link:hover {
-    background-color: rgb(109, 155, 216);
-    text-decoration: none !important;
+    background-color: rgb(116, 151, 196);
 }
 
 .project-link > a {
