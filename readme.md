@@ -23,20 +23,6 @@ Messages are joined to users only and have a recipient and sender, which must be
 
 Issues are connected to units only and are marked as resolved or unresolved. Only tenants may officially change an issue's status to resolved.
 
-### Routes
-
-###### index, /
-The index or home route is called after successful login. For managers, all properties are displayed. For tenants, unit info is displayed as well as dropdown forms to report a new issue or send a message to their property manager.
-
-Manager Home
-![](readme_files/manager_home.png)
-
-
-Tenant Home
-![](readme_files/tenant_home.png)
-
-/login, /logout, /register
-
 ##### Diagram
 ![](readme_files/property_models.png)
 
@@ -93,3 +79,25 @@ Tenant Home
  ┗ 📜requirements.txt
  ```
 
+
+### Routes
+
+###### index: /
+The index or home route is called after successful login. For managers, all properties are displayed. For tenants, unit info is displayed as well as dropdown forms to report a new issue or send a message to their property manager.
+
+Manager Home
+![](readme_files/manager_home.png)
+
+
+Tenant Home
+![](readme_files/tenant_home.png)
+
+
+###### login, logout, register: /login, /logout, /register
+
+
+
+
+### Distinctiveness and Complexity
+
+### Drawbacks / Additional Features
