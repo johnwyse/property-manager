@@ -206,7 +206,7 @@ Complexity:
 
 - Verification for connecting property managers and tenants: Ideally, property managers should send some sort of verification email or verification code to tenants before they can claim a unit.
 - Multiple tenants at each unit: As of now only one tenant can be attached to each unit. This could be xpanded since multiple people could live in each unit. This would likely require another many-to-many model.
-- More editing, adding features: The app could be improved if lease documents, images, messages, units, tenants, etc could be edited or deleted (ie when a new tenant moves into a unit)
+- More editing, adding, delelting features: The app could be improved if lease documents, images, messages, units, tenants, etc could be edited, added or deleted (ie when a new tenant moves into a unit).
 - Urgency levels for issues: Sorting unresolved issues by urgency could improve user experience.
 - Google Maps API: Units could pull an image using the Google Maps API.
 - More specific error page messages.
