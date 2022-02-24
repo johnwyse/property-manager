@@ -82,7 +82,7 @@ Issues are connected to units only and are marked as resolved or unresolved. Onl
 
 ## Routes
 
-#### index: /
+#### index
 The index or home route is called after successful login. For managers, all properties are displayed. For tenants, unit info is displayed as well as dropdown forms to report a new issue or send a message to their property manager.
 
 Manager Home
@@ -92,28 +92,56 @@ Manager Home
 Tenant Home
 ![](readme_files/tenant_home.png)
 
-#### profile: /profile
+#### profile
 The profile route renders a page that shows information about the user and gives an opportunity to upload a profile picture which then appears on messages.
 
 Manager Profile
 ![](readme_files/profile.png)
 
-#### unit: unit/<int:unit_id>
+#### unit
 The unit view is restricted to just property managers and shows a page similar to a tenant's home page, but specific to each unit managed.
 
-#### messages: /messages, /unit_messages/<int:unit_id>
-The messages view renders a page for managers that creates links to message threads with each active tenant. It also shows the number of unread messages in each thread. For tenants, the messages thread redirects them to unit_messages for their specific unit.
+#### messages, unit_messages
+The messages view renders a page for managers that creates links to message threads with each active tenant. It also shows the number of unread messages in each thread. For tenants, the messages view redirects them to unit_messages for their specific unit.
 
-The unit_messages view renders a page that shows all messages between a property manager and a specific tenant. It has pagination and displays 10 messages (and images if present) in reverse chronological order. It also displays if sent messages are read or unread by the recipient.
+The unit_messages view renders a page that shows all messages between a property manager and a specific tenant. It has pagination and displays 10 messages (and images if present) in reverse chronological order. It also displays if sent messages are read or unread by the recipient. Users can delete messages they have sent.
 
 Unit Messages
 ![](readme_files/messages.png)
 
+#### issues, unit_issues
+The issues view renders a page for managers that creates links to issues at each unit. It also shows the number of unresolved issues at each address. For tenants, the issues view redirects them to unit_issues for their specific unit.
 
-#### login, logout, register: /login, /logout, /register
+The unit_issues view renders a page that shows all issues at a specific unit. Issues are designated as resolved or unresolved and color-coded. Only tenants can edit/update issues or change their status from unresolved to resolved or vice versa.
 
+Unit Issues
+![](readme_files/issues.png)
 
+#### add_property, report_issue, send_message
 
+The add_property, report_issue, and send_message views all create model objects via POST from forms on the index, unit_issues, and unit_messages pages. 
+
+#### add_tenant, change_resolved, add_profile_picture
+
+The add_tenant, change_resolved, add_profile_picture views all edit model objects via PUT forms. Upon registration, new tenants slaim a property from a dropdown list of all "unclaimed" properties. Tenants can change the resolved status of their own issues. All users can add or update a profile picture attached to their user object.
+
+#### login, logout, register
+
+These views are edited from previous CS50W login and authentication distribution code. Registration is adjusted so users are either tenants or managers. 
+
+#### API Routes
+
+###### edit_issues
+Users can edit issues as updates are needed. An API updates the issues description via PUT.
+
+###### delete_message
+Users can delete their own messages. Javascript starts a sliding animation after the API call.
+
+###### mark_as_read
+When a user loads a message thread, all of their received messages are marked as read via PUT when the DOM is loaded.
+
+###### get_notifications
+Each time the layout DOM is loaded, the user's unread message count and unresolved issues count (for managers only) is retrieved via GET. These counts are then inserted into the navbar.
 
 ## Distinctiveness and Complexity
 
