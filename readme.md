@@ -18,9 +18,9 @@
 
 ## Overview
 
-Property is a web app that connects property managers and tenants. After registering an account and connecting to a certain property/properties, tenants and managers can message each other (with photos attached), managers can post lease documents, and tenants can report, update, and resolve maintenance issues. Users are alerted of unresolved issues and unread messages upon logging in. 
+Property is a web app that connects property managers and tenants. After registering an account and connecting to a certain property, tenants and managers can message each other (with photos attached), managers can post lease documents, and tenants can report, update, and resolve maintenance issues. Users are alerted of unresolved issues and unread messages upon logging in. 
 
-I was inspired to create this web app because of my real-life frustration with my own property manager and desire for better communication. 
+I was inspired to create this web app because of a desire for better communication with my own property manager. 
 
 ## File Tree
 
@@ -159,13 +159,17 @@ Each time the layout DOM is loaded, the user's unread message count and unresolv
 6. Visit the app locally in your browser. 
 
    - Click "Register" to create a new account and explore the app.
+
     or
+
    - Login as a manager:
      ```
      username: richard
      password: hello5
      ```
+    
     or
+
    - Login as tenant: 
      ```
      username: john 
@@ -176,11 +180,11 @@ Each time the layout DOM is loaded, the user's unread message count and unresolv
 
 The following features are distinct from all other CS50W projects:
 - Mobile-Responsive: navbar toggles via Bootstrap and all styling resizes for mobile devices.
-- File-Uploading: images and pdfs can be directly uploaded, stored in the media folder, and accessed by the database
-- Animation: CSS and JavaScript utilize animation/keyframes after deleting messages
-- Manager vs. Tenant views: each html page displays differently depending on whether the user is a property manager or tenant (all other projects had only one type of user)
+- File-Uploading: Images and pdfs can be directly uploaded, stored in the media folder, and accessed through the database.
+- Animation: CSS and JavaScript implement animation/keyframes after deleting messages.
+- Manager vs. Tenant views: each html page displays differently depending on whether the user is a property manager or tenant (all other projects had only one type of user).
 - Property facilitates communication and reporting between certain users as opposed to all users.
-- Property significantly more complex in breadth and depth than the other projects. 
+- Property is significantly more complex in breadth and depth than the other projects. 
 
 
 Complexity:
@@ -195,3 +199,4 @@ Complexity:
 - More editing, adding features: The app could be improved if lease documents, images, messages, units, tenants, etc could be edited or deleted (ie when a new tenant moves into a unit)
 - Urgency levels for issues: Sorting unresolved issues by urgency could improve user experience.
 - Google Maps API: Units could pull an image using the Google Maps API.
+- More specific error page messages.
