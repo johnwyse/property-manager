@@ -6,26 +6,21 @@
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
 
+## Table of Contents
+
+  - [Overview](#overview)
+  - [File Tree](#file-tree)
+  - [Models](#models)
+  - [Routes](#routes)
+  - [How to Run](#how-to-run)
+  - [Distinctiveness and Complexity](#distinctiveness-and-complexity)
+  - [Next Steps](#next-steps)
+
 ## Overview
 
 Property is a web app that connects property managers and tenants. After registering an account and connecting to a certain property/properties, tenants and managers can message each other (with photos attached), managers can post lease documents, and tenants can report, update, and resolve maintenance issues. Users are alerted of unresolved issues and unread messages upon logging in. 
 
 I was inspired to create this web app because of my real-life frustration with my own property manager and desire for better communication. 
-
-## Models
-There are four main models: Users, Units, Messages, and Issues.
-
-All users are classified as either a manager or a tenant. Managers can be joined to multiple units, while tenants can be joined to only one unit. All html views are based on whether a user is a tenant or manager.
-
-Units are joined to one manager and one tenant user. Units are created by managers and later claimed by tenants upon registration. Unit objects also contain image and pdf files related to the unit.
-
-Messages are joined to users only and have a recipient and sender, which must be one tenant and one manager. Messages are also automatically marked as read or unread by an API call.
-
-Issues are connected to units only and are marked as resolved or unresolved. Only tenants may officially change an issue's status to resolved.
-
-#### Diagram
-![](readme_files/property_models.png)
-
 
 ## File Tree
 
@@ -42,10 +37,10 @@ Issues are connected to units only and are marked as resolved or unresolved. Onl
  ┃ ┣ 📂static
  ┃ ┃ ┣ 📂property
  ┃ ┃ ┃ ┣ 📜favicon.png - favicon
- ┃ ┃ ┃ ┣ 📜index.js - dropdowns for send message and report issue forms
- ┃ ┃ ┃ ┣ 📜issues.js - edit issues, show textarea, send message and report issue dropdowns
- ┃ ┃ ┃ ┣ 📜messages.js - send message dropdown, mark messages as read, delete messages
- ┃ ┃ ┃ ┣ 📜notifications.js - gets and inserts counts for unread messages and unresolved issues
+ ┃ ┃ ┃ ┣ 📜index.js - dropdowns for send message and report issue forms for index.html
+ ┃ ┃ ┃ ┣ 📜issues.js - edit issues, show textarea, send message and report issue dropdowns for unit_issues.html
+ ┃ ┃ ┃ ┣ 📜messages.js - send message dropdown, mark messages as read, delete messages for unit_messages.html
+ ┃ ┃ ┃ ┣ 📜notifications.js - gets and inserts counts for unread messages and unresolved issues for layout.html
  ┃ ┃ ┃ ┗ 📜styles.css - all CSS styling
  ┃ ┣ 📂templates
  ┃ ┃ ┣ 📂property
@@ -72,6 +67,20 @@ Issues are connected to units only and are marked as resolved or unresolved. Onl
  ┣ 📜readme.md - readme
  ┗ 📜requirements.txt - required packages to run app
  ```
+
+## Models
+There are four main models: Users, Units, Messages, and Issues.
+
+All users are classified as either a manager or a tenant. Managers can be joined to multiple units, while tenants can be joined to only one unit. All html views are based on whether a user is a tenant or manager.
+
+Units are joined to one manager and one tenant user. Units are created by managers and later claimed by tenants upon registration. Unit objects also contain image and pdf files related to the unit.
+
+Messages are joined to users only and have a recipient and sender, which must be one tenant and one manager. Messages are also automatically marked as read or unread by an API call.
+
+Issues are connected to units only and are marked as resolved or unresolved. Only tenants may officially change an issue's status to resolved.
+
+#### Diagram
+![](readme_files/property_models.png)
 
 
 ## Routes
@@ -139,15 +148,15 @@ Each time the layout DOM is loaded, the user's unread message count and unresolv
 
 ## How to Run
 
-##### Visit locally
 1. Clone the repository.
 2. Install Python and Django.
 3. Install all packages from `requirements.txt`
-4. Run:
+4. Create your own Django secret key within settings.py
+5. Run:
    ```python
    python manage.py runserver 
    ```
-5. Visit the app locally in your browser. 
+6. Visit the app locally in your browser. 
 
    - Click "Register" to create a new account and explore the app.
     or
@@ -165,4 +174,24 @@ Each time the layout DOM is loaded, the user's unread message count and unresolv
 
 ## Distinctiveness and Complexity
 
-## Drawbacks / Additional Features
+The following features are distinct from all other CS50W projects:
+- Mobile-Responsive: navbar toggles via Bootstrap and all styling resizes for mobile devices.
+- File-Uploading: images and pdfs can be directly uploaded, stored in the media folder, and accessed by the database
+- Animation: CSS and JavaScript utilize animation/keyframes after deleting messages
+- Manager vs. Tenant views: each html page displays differently depending on whether the user is a property manager or tenant (all other projects had only one type of user)
+- Property facilitates communication and reporting between certain users as opposed to all users.
+- Property significantly more complex in breadth and depth than the other projects. 
+
+
+Complexity:
+- Full CRUD capability
+- Property implements four different JavaScript files across four different html files.
+- Property includes four different models with additions to AbstractUser
+
+## Next Steps
+
+- Verification for connecting property managers and tenants: Ideally, property managers should send some sort of verification email or verification code to tenants before they can claim a unit.
+- Multiple tenants at each unit: As of now only one tenant can be attached to each unit. This could be xpanded since multiple people could live in each unit. This would likely require another many-to-many model.
+- More editing, adding features: The app could be improved if lease documents, images, messages, units, tenants, etc could be edited or deleted (ie when a new tenant moves into a unit)
+- Urgency levels for issues: Sorting unresolved issues by urgency could improve user experience.
+- Google Maps API: Units could pull an image using the Google Maps API.
