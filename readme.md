@@ -92,6 +92,23 @@ Manager Home
 Tenant Home
 ![](readme_files/tenant_home.png)
 
+###### profile: /profile
+The profile route renders a page that shows information about the user and gives an opportunity to upload a profile picture which then appears on messages.
+
+Manager Profile
+![](readme_files/profile.png)
+
+###### unit: unit/<int:unit_id>
+The unit view is restricted to just property managers and shows a page similar to a tenant's home page, but specific to each unit managed.
+
+###### messages: /messages, /unit_messages/<int:unit_id>
+The messages view renders a page for managers that creates links to message threads with each active tenant. It also shows the number of unread messages in each thread. For tenants, the messages thread redirects them to unit_messages for their specific unit.
+
+The unit_messages view renders a page that shows all messages between a property manager and a specific tenant. It has pagination and displays 10 messages (and images if present) in reverse chronological order. It also displays if sent messages are read or unread by the recipient.
+
+Unit Messages
+![](readme_files/messages.png)
+
 
 ###### login, logout, register: /login, /logout, /register
 
