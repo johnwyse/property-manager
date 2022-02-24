@@ -16,13 +16,15 @@
   - [Distinctiveness and Complexity](#distinctiveness-and-complexity)
   - [Next Steps](#next-steps)
 
-## Overview [Back to Top](#property)
+## Overview 
 
 Property is a web app that connects property managers and tenants. After registering an account and connecting to a certain property, tenants and managers can message each other (with photos attached), managers can post lease documents, and tenants can report, update, and resolve maintenance issues. Users are alerted of unresolved issues and unread messages upon logging in. 
 
 I was inspired to create this web app because of a desire for better communication with my own property manager. 
 
-## File Tree [Back to Top](#property)
+[Back to Top](#property)
+
+## File Tree 
 
 ```
 📦capstone
@@ -68,7 +70,9 @@ I was inspired to create this web app because of a desire for better communicati
  ┗ 📜requirements.txt - required packages to run app
  ```
 
-## Models [Back to Top](#property)
+[Back to Top](#property)
+
+## Models 
 
 There are four main models: Users, Units, Messages, and Issues.
 
@@ -83,8 +87,9 @@ Issues are connected to units only and are marked as resolved or unresolved. Onl
 #### Diagram
 ![](readme_files/property_models.png)
 
+[Back to Top](#property)
 
-## Routes [Back to Top](#property)
+## Routes 
 
 #### index
 The index or home route is called after successful login. For managers, all properties are displayed. For tenants, unit info is displayed as well as dropdown forms to report a new issue or send a message to their property manager.
@@ -147,7 +152,9 @@ When a user loads a message thread, all of their received messages are marked as
 #### get_notifications
 Each time the layout DOM is loaded, the user's unread message count and unresolved issues count (for managers only) is retrieved via GET. These counts are then inserted into the navbar.
 
-## How to Run [Back to Top](#property)
+[Back to Top](#property)
+
+## How to Run 
 
 1. Clone the repository.
 2. Install Python and Django.
@@ -177,7 +184,9 @@ Each time the layout DOM is loaded, the user's unread message count and unresolv
      password: hello5
      ```
 
-## Distinctiveness and Complexity [Back to Top](#property)
+[Back to Top](#property)
+
+## Distinctiveness and Complexity 
 
 The following features are distinct from all other CS50W projects:
 - Mobile-Responsive: navbar toggles via Bootstrap and all styling resizes for mobile devices.
@@ -193,7 +202,9 @@ Complexity:
 - Property implements four different JavaScript files across four different html files.
 - Property includes four different models with additions to AbstractUser
 
-## Next Steps [Back to Top](#property)
+[Back to Top](#property)
+
+## Next Steps 
 
 - Verification for connecting property managers and tenants: Ideally, property managers should send some sort of verification email or verification code to tenants before they can claim a unit.
 - Multiple tenants at each unit: As of now only one tenant can be attached to each unit. This could be xpanded since multiple people could live in each unit. This would likely require another many-to-many model.
@@ -202,3 +213,5 @@ Complexity:
 - Google Maps API: Units could pull an image using the Google Maps API.
 - More specific error page messages.
 - More testing needed.
+
+[Back to Top](#property)
