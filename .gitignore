@@ -2,5 +2,7 @@
 .DS_Store
 __pycache__/
 *venv/
-static/admin/
-static/django_extensions/
+static/
+property/static/admin/
+property/static/django_extensions/
+
