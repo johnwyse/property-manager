@@ -8,6 +8,8 @@ class User(AbstractUser):
     manager = models.BooleanField(default=False)
     profile_picture = models.ImageField(blank=True, null=True, upload_to='profile_images/')
 
+    def is_valid_user(self):
+        return (self.manager == True and self.tenant == False) or (self.manager == False and self.tenant == True)
 
 class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="senders")
@@ -16,6 +18,11 @@ class Message(models.Model):
     image = models.ImageField(blank=True, null=True, upload_to='message_images/')
     text = models.TextField(max_length=1000, default=" ", null=False, blank=False)
     read = models.BooleanField(default=False)
+
+    def is_valid_message(self):
+        a = (self.sender.manager == True and self.recipient.tenant == True) or (self.sender.tenant == True and self.recipient.manager == True)
+        b = self.text != ""
+        return a == True and b == True
 
     def __str__(self):
         return f"Message #{self.id} to {self.recipient} from {self.sender}"
@@ -39,6 +46,9 @@ class Unit(models.Model):
     image = models.ImageField(blank=True, upload_to='unit_images/')
     lease = models.FileField(blank=True, upload_to='leases/')
 
+    def is_valid_unit(self):
+        return self.manager and self.manager.manager == True and self.manager.tenant == False and self.address != ""
+   
     def __str__(self):
         return f"{self.address}"    
     
@@ -60,7 +70,7 @@ class Issue(models.Model):
     description = models.TextField(max_length=1000, null=False, blank=False)
     time_created = models.DateTimeField(default=timezone.now)
     resolved = models.BooleanField(default=False)
-
+    
     def __str__(self):
         return f"{self.title} at {self.unit_id}"
     
