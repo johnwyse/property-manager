@@ -13,14 +13,16 @@ class PropertyTestCase(TestCase):
         u3 = User.objects.create(manager=True, tenant=True, username="user3")
         u4 = User.objects.create(manager=False, tenant=False, username="user4")
         
-            # Same as user1
+            # Same as user1, user2
         u5 = User.objects.create(manager=True, tenant=False, username="user5")
+        u6 = User.objects.create(manager=False, tenant=True, username="user6")
 
         # Create messages
         Message.objects.create(sender=u1, recipient=u2, text="hello")
         Message.objects.create(sender=u1, recipient=u2, text="")
         Message.objects.create(sender=u1, recipient=u1, text="hello self")
         Message.objects.create(sender=u1, recipient=u5, text="hello fellow manager")
+        Message.objects.create(sender=u2, recipient=u6, text="hello fellow tenant")
         Message.objects.create(sender=u1, recipient=u4, text="hello invalid double user")
         Message.objects.create(sender=u1, recipient=u4, text="hello invalid none user")
 
@@ -66,14 +68,18 @@ class PropertyTestCase(TestCase):
     def test_invalid_message_to_same_user_type(self):
         m4 = Message.objects.get(text="hello fellow manager")
         self.assertFalse(m4.is_valid_message())
+    
+    def test_invalid_message_to_same_user_type(self):
+        m5 = Message.objects.get(text="hello fellow tenant")
+        self.assertFalse(m5.is_valid_message())
 
     def test_message_to_invalid_double_user(self):
-        m5 = Message.objects.get(text="hello invalid double user")
-        self.assertFalse(m5.is_valid_message())
+        m6 = Message.objects.get(text="hello invalid double user")
+        self.assertFalse(m6.is_valid_message())
     
     def test_message_to_invalid_none_user(self):
-        m6 = Message.objects.get(text="hello invalid none user")
-        self.assertFalse(m6.is_valid_message())
+        m7 = Message.objects.get(text="hello invalid none user")
+        self.assertFalse(m7.is_valid_message())
     
 
     # Unit Tests
