@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("issue button clicked")
         if (document.getElementById("report_issue_toggle").style.display === "none") {
             console.log("opening")
-            document.getElementById("report_issue_toggle").style.display = "inline-block";
+            document.getElementById("report_issue_toggle").style.display = "block";
         } else {
             console.log("closing")
             document.getElementById("report_issue_toggle").style.display = "none";
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("message button clicked")
     if (document.getElementById("send_message_toggle").style.display === "none") {
         console.log("opening")
-        document.getElementById("send_message_toggle").style.display = "inline-block";
+        document.getElementById("send_message_toggle").style.display = "block";
     } else {
         console.log("closing")
         document.getElementById("send_message_toggle").style.display = "none";
