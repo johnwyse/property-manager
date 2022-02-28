@@ -50,76 +50,77 @@
         </div>
         {% endif %}
 
+        <div id="flex-container">
+            <div class="flex-child">
+                <h2 id="unresolved_header">Unresolved Issues</h2>
+                
+                <div class="unresolved-issues">
+                {% for issue in unresolved_issues %}
+                    <div class="unresolved-item">
+                        <p>Issue: {{issue.title}}</p>
+                        <p>Originally Reported: {{issue.time_created}}</p>
+                        
+                        <div id="original_issue_description_{{issue.id}}">
+                            <p id="current_issue_description_{{issue.id}}">Description:<br>{{issue.description|linebreaksbr}}</p>
+                            {% if user.tenant %}
+                            <button onclick="show_issue_textarea('{{ issue.id }}')" id="edit_button" type="button" class="edit btn btn-info">Edit/Update</button>
+                            <br><br>
+                            {% endif %}
+                        </div>
 
-        <div class="inline-child">
-            <h2 id="unresolved_header">Unresolved Issues</h2>
-            
-            <div class="unresolved-issues">
-            {% for issue in unresolved_issues %}
-                <div class="unresolved-item">
-                    <p>Issue: {{issue.title}}</p>
-                    <p>Originally Reported: {{issue.time_created}}</p>
-                    
-                    <div id="original_issue_description_{{issue.id}}">
-                        <p id="current_issue_description_{{issue.id}}">Description:<br>{{issue.description|linebreaksbr}}</p>
                         {% if user.tenant %}
-                        <button onclick="show_issue_textarea('{{ issue.id }}')" id="edit_button" type="button" class="edit btn btn-info">Edit/Update</button>
-                        <br><br>
+                        <div class="edit_issue" id="edit_issue_area_{{issue.id}}" style="display: none">
+                            <textarea class="edit_issue_textarea" id="updated_description_{{issue.id}}">{{ issue.description }}</textarea><br>
+                            <button onclick="update_issue('{{ issue.id }}')" type="button" id="update_button" class="update btn btn-info">Save</button>
+                            <input id="issue_id" type=hidden value="{{ issue.id }}">
+                            <br><br>
+                        </div>
+                        {% endif %}
+                        
+                        {% if issue.image %} 
+                        <div class="issue_image">
+                            <img src="{{ issue.image.url }}" alt="{{ issue.title }}" height=200>
+                            <br><br>
+                        </div>
+                        {% endif %}
+                        
+                        {% if user.tenant %}
+                        <form action="{% url 'change_resolved' issue.id %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-warning" id="resolve_button_{{issue.id}}">Mark as Resolved</button>
+                        </form> 
                         {% endif %}
                     </div>
-
-                    {% if user.tenant %}
-                    <div class="edit_issue" id="edit_issue_area_{{issue.id}}" style="display: none">
-                        <textarea class="edit_issue_textarea" id="updated_description_{{issue.id}}">{{ issue.description }}</textarea><br>
-                        <button onclick="update_issue('{{ issue.id }}')" type="button" id="update_button" class="update btn btn-info">Save</button>
-                        <input id="issue_id" type=hidden value="{{ issue.id }}">
-                        <br><br>
-                    </div>
-                    {% endif %}
-                    
-                    {% if issue.image %} 
-                    <div class="issue_image">
-                        <img src="{{ issue.image.url }}" alt="{{ issue.title }}" height=200>
-                        <br><br>
-                    </div>
-                    {% endif %}
-                    
-                    {% if user.tenant %}
-                    <form action="{% url 'change_resolved' issue.id %}" method="post">
-                        {% csrf_token %}
-                        <button class="btn btn-warning" id="resolve_button_{{issue.id}}">Mark as Resolved</button>
-                    </form> 
-                    {% endif %}
+                {% endfor %}
                 </div>
-            {% endfor %}
             </div>
-        </div>
 
-        <div class="inline-child">
-            <h2 id="resolved_header">Resolved Issues</h2>
+            <div class="flex-child">
+                <h2 id="resolved_header">Resolved Issues</h2>
 
-            <div class="resolved-issues">
-            {% for issue in resolved_issues %}
-                <div class="resolved-item">
-                    <p>Issue: {{issue.title}}</p>
-                    <p>Originally Reported: {{issue.time_created}}</p>
-                    <p>Description:<br>{{issue.description|linebreaksbr}}</p>
+                <div class="resolved-issues">
+                {% for issue in resolved_issues %}
+                    <div class="resolved-item">
+                        <p>Issue: {{issue.title}}</p>
+                        <p>Originally Reported: {{issue.time_created}}</p>
+                        <p>Description:<br>{{issue.description|linebreaksbr}}</p>
 
-                    {% if issue.image %} 
-                    <div class="issue_image">
-                        <img src="{{ issue.image.url }}" alt="{{ issue.title }}" height=200>
-                        <br><br>
+                        {% if issue.image %} 
+                        <div class="issue_image">
+                            <img src="{{ issue.image.url }}" alt="{{ issue.title }}" height=200>
+                            <br><br>
+                        </div>
+                        {% endif %}
+                        {% if user.tenant %} 
+                        <form action="{% url 'change_resolved' issue.id %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-warning" id="unresolve_button_{{issue.id}}">Mark as Unresolved</button>
+                        </form> 
+                        {% endif %}
                     </div>
-                    {% endif %}
-                    {% if user.tenant %} 
-                    <form action="{% url 'change_resolved' issue.id %}" method="post">
-                        {% csrf_token %}
-                        <button class="btn btn-warning" id="unresolve_button_{{issue.id}}">Mark as Unresolved</button>
-                    </form> 
-                    {% endif %}
+                
+                {% endfor %}
                 </div>
-            
-            {% endfor %}
             </div>
         </div>
     

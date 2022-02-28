@@ -6,7 +6,6 @@
     {% if user.tenant %}
         <h1>Hello, {{user.first_name}}!</h1>
 
-        <div class="list-container">
         {% if my_unit %}
 
         <div class="unit-listing">
@@ -21,8 +20,8 @@
             {% endif %}
         </div>
 
-        <div class="inline-container">
-            <div class="inline-child">
+        <div id="flex-container">
+            <div class="flex-child">
                 <button id="show_report_issue_form">Report an issue to {{my_unit.manager.first_name}}</button>
                 
                 <div class="report-issue-form" id="report_issue_toggle" style="display: none">
@@ -42,7 +41,7 @@
                 </div>
             </div>
 
-            <div class="inline-child">
+            <div class="flex-child">
                 <button id="show_send_message_form">Send {{my_unit.manager.first_name}} a message</button>
                 
                 <div class="send-message-form" id="send_message_toggle" style="display: none">

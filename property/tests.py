@@ -1,6 +1,5 @@
-from django.db.models import Max
-from django.test import Client, TestCase
-from .models import User, Issue, Message, Unit
+from django.test import TestCase
+from .models import User, Message, Unit
 
 # Create your tests here.
 class PropertyTestCase(TestCase):
@@ -52,7 +51,6 @@ class PropertyTestCase(TestCase):
     
 
     # Message tests
-
     def test_valid_message(self):
         m1 = Message.objects.get(text="hello")
         self.assertTrue(m1.is_valid_message())
@@ -83,7 +81,6 @@ class PropertyTestCase(TestCase):
     
 
     # Unit Tests
-
     def test_valid_unit(self):
         unit1 = Unit.objects.get(address="123 Hello World St")
         self.assertTrue(unit1.is_valid_unit())
@@ -103,7 +100,3 @@ class PropertyTestCase(TestCase):
     def test_invalid_none_user_unit(self):
         unit5 = Unit.objects.get(address="123 Invalid None Road")
         self.assertFalse(unit5.is_valid_unit())
-
-
-
-    

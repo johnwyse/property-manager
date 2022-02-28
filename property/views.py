@@ -20,6 +20,8 @@ def resume(request):
 
 def index(request):
     if request.user.is_authenticated:
+        
+        # Show uit list to managers
         if request.user.manager:
             try:
                 units = Unit.objects.filter(manager=request.user).order_by('address').order_by('-tenant')
@@ -29,6 +31,8 @@ def index(request):
             return render(request, 'property/index.html', {
                 "units": units,
             })
+        
+        # Show unit or unit sign-up to tenants
         else:
             try:
                 my_unit = Unit.objects.get(tenant=request.user)
@@ -40,6 +44,8 @@ def index(request):
                 "my_unit": my_unit,
                 "empty_units": empty_units
             })
+    
+    # Redirect to login page
     else:
         return render(request, 'property/login.html')
 
@@ -552,6 +558,7 @@ def register(request):
             user.manager = manager
             user.first_name = first_name
             user.last_name = last_name
+            
             user.save()
         except IntegrityError:
             return render(request, "property/register.html", {

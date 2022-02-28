@@ -7,8 +7,8 @@
 
     <br><br><br>
 
-    <div class="in-line_container">
-        <div class="inline-child">
+    <div id="flex-container">
+        <div class="flex-child">
             <div id="profile_picture">
                 {% if user.profile_picture %}
                 <img src="{{ user.profile_picture.url }}" alt="{{ user }}" width=50%>
@@ -29,7 +29,7 @@
                 </form>
             </div>
         </div>
-        <div class="inline-child">
+        <div class="flex-child">
             <div class="profile_info">
                 
                 <p>username: {{user}}</p>
