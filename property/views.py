@@ -21,7 +21,7 @@ def resume(request):
 def index(request):
     if request.user.is_authenticated:
         
-        # Show uit list to managers
+        # Show unit list to managers
         if request.user.manager:
             try:
                 units = Unit.objects.filter(manager=request.user).order_by('address').order_by('-tenant')
@@ -77,8 +77,14 @@ def change_resolved(request, issue_id):
                     issue.resolved = True
                 issue.save()
             except ValueError:
-                return render(request, "property/error.html")
-        return HttpResponseRedirect(reverse("issues"))
+                return render(request, "property/error.html", {
+                    "message": "Can't find that issue."
+                })
+            return HttpResponseRedirect(reverse("issues"))
+        else:
+            return render(request, "property/error.html", {
+                    "message": "Managers cannot change resolved status."
+                })
     else:
         return render(request, 'property/error.html')
 
@@ -86,15 +92,20 @@ def change_resolved(request, issue_id):
 @login_required
 def add_property(request):
     if request.method =="POST":
+        
+        # Look for image
         if 'image' in request.FILES:
             image = request.FILES["image"]
         else:
             image = None
 
+        # Look for lease
         if 'lease' in request.FILES:
             lease = request.FILES["lease"]
         else:
             lease = None
+        
+        # Try to save new unit
         try:
             u = Unit(
                 manager = User.objects.get(username=request.user),
@@ -103,15 +114,20 @@ def add_property(request):
                 lease = lease
             )
         except ValueError:
-            return render(request, "property/error.html", {
-                "message": "Invalid Property"
+            return render(request, "property/add_property.html", {
+                "add_message": "Invalid property."
             })
         if u.address == "":
             return render(request, "property/add_property.html", {
                 "add_message": "Must provide an address"
             })
 
-        u.save()
+        if u.is_valid_unit():
+            u.save()
+        else:
+            return render(request, "property/error.html", {
+                "message": "Invalid property. Try again."
+            })
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "property/add_property.html")
@@ -121,10 +137,14 @@ def add_property(request):
 def report_issue(request):
     if request.method =="POST":
         reporter = User.objects.get(username=request.user)
+        
+        # Look for an image
         if 'image' in request.FILES:
             image = request.FILES["image"]
         else:
             image = None
+        
+        # Try to save issue
         try:
             i = Issue(
                 unit_id = Unit.objects.get(tenant=reporter),
@@ -145,12 +165,18 @@ def report_issue(request):
 @login_required
 def send_message(request):
     if request.method =="POST":
+
+        # if tenant is sending to manager
         if request.user.tenant == True:
             my_unit = Unit.objects.get(tenant=request.user)
+            
+            # Look for image
             if 'image' in request.FILES:
                 image = request.FILES["image"]
             else:
                 image = None
+            
+            # Try to save message
             try:
                 m = Message(
                     image = image,
@@ -162,15 +188,25 @@ def send_message(request):
                 return render(request, "property/error.html", {
                     "message": "Invalid message. Try again."
                 })
-            m.save()
+            if m.is_valid_message():
+                m.save()
+            else:
+                return render(request, "property/error.html", {
+                    "message": "Invalid message. Try again."
+                })
             return HttpResponseRedirect(reverse("messages"))
         else:
+
             # if manager is sending to tenant
             unit = Unit.objects.get(tenant=request.POST["tenant"])
+            
+            # Look for image
             if 'image' in request.FILES:
                 image = request.FILES["image"]
             else:
                 image = None
+            
+            # Try to save message
             try:
                 m = Message(
                     sender = User.objects.get(username=request.user),
@@ -182,7 +218,12 @@ def send_message(request):
                 return render(request, "property/error.html", {
                     "message": "Invalid message. Try again."
                 })
-            m.save()
+            if m.is_valid_message():
+                m.save()
+            else:
+                return render(request, "property/error.html", {
+                    "message": "Invalid message. Try again."
+                })
             return HttpResponseRedirect(reverse("unit_messages", kwargs={'unit_id': unit.id}))
     else:
         return HttpResponseRedirect(reverse("index"))
@@ -218,6 +259,8 @@ def unit(request, unit_id):
 @login_required
 def messages(request):
     if request.method == "GET":
+
+        # For tenants, load unit messages at their only unit
         if request.user.tenant == True:
             try:
                 unit_count = Unit.objects.filter(tenant=request.user).count()
@@ -229,6 +272,7 @@ def messages(request):
                 unit = Unit.objects.get(tenant=request.user)
                 return HttpResponseRedirect(reverse("unit_messages", kwargs={'unit_id': unit.id}))
         else:
+
             # manager loads links to messages with each tenant/unit
             try:
                 units = Unit.objects.filter(manager=request.user).exclude(tenant=None).order_by('-tenant')
@@ -244,6 +288,7 @@ def messages(request):
                     unread_count = 0
                 unread_counts.append(unread_count)
             
+            # Zip units and unread message count for template
             zipped_messages_info = zip(unread_counts, units)
             
             return render(request, 'property/messages.html', {
@@ -260,7 +305,11 @@ def unit_messages(request, unit_id):
         try:
             unit = Unit.objects.get(id=unit_id)
         except ObjectDoesNotExist:
-            return render(request, 'property/error.html')
+            return render(request, 'property/error.html', {
+                "message": "That property does not exist."
+            })
+        
+        # If user is a manager, find messages between manager and tenant at specific unit
         if request.user.manager:     
             messages = Message.objects.filter(sender=request.user).filter(recipient=unit.tenant) | Message.objects.filter(recipient=request.user).filter(sender=unit.tenant)
             ordered_messages = Message.objects.filter(id__in=messages).order_by('-timestamp')
@@ -280,6 +329,8 @@ def unit_messages(request, unit_id):
                 "unit": unit,
                 "data": unit_id
             })
+        
+        # If user is a tenant, just find all messages where user is sender or recipient
         else:
             messages = Message.objects.filter(sender=request.user).values_list('id') | Message.objects.filter(recipient=request.user).values_list('id')
             ordered_messages = Message.objects.filter(id__in=messages).order_by('-timestamp')
@@ -306,6 +357,8 @@ def unit_messages(request, unit_id):
 @login_required
 def issues(request):
     if request.method == "GET":
+
+        # For tenants, load issues at their only unit
         if request.user.tenant:
             try:
                 unit_count = Unit.objects.filter(tenant=request.user).count()
@@ -316,6 +369,8 @@ def issues(request):
             else:
                 unit = Unit.objects.get(tenant=request.user)
                 return HttpResponseRedirect(reverse("unit_issues", kwargs={'unit_id': unit.id}))
+        
+        # For managers, make list of units
         else:
             try:
                 units = Unit.objects.filter(manager=request.user).exclude(tenant=None).order_by('address')
@@ -330,6 +385,7 @@ def issues(request):
                     unresolved_count = None
                 unresolved_counts.append(unresolved_count)
 
+            # Zip unresolved counts and units for template
             zipped_issues_info = zip(unresolved_counts, units)
 
             return render(request, 'property/issues.html', {
@@ -341,6 +397,8 @@ def issues(request):
 
 @login_required
 def unit_issues(request, unit_id):
+
+    # Sort issues as unresolved or resolved and send to template for specific unit
     if request.method == "GET":
         unit = Unit.objects.get(id=unit_id)
         resolved_issues = Issue.objects.filter(unit_id=unit.id).filter(resolved=True).order_by('-time_created') 
@@ -358,11 +416,15 @@ def unit_issues(request, unit_id):
 def profile(request):
     if request.method == "GET":
         user = User.objects.get(username=request.user)
+        
+        # Get unit info for tenant
         if user.tenant:
             try:
                 units = Unit.objects.get(tenant=user)
             except ObjectDoesNotExist:
                 units = None
+        
+        # Gat info for all properties for manager
         else:
             try:
                 units = Unit.objects.filter(manager=user)
@@ -456,6 +518,8 @@ def mark_as_read(request, unit_id):
 def get_notifications(request):
 
     if request.method == "GET":
+
+        # For managers, get unread messages and unresolved issues
         if request.user.manager:
             # unread message count
             unread_messages_count = Message.objects.filter(recipient=request.user).filter(read=False).count()
@@ -473,6 +537,7 @@ def get_notifications(request):
             
             print(f"unresolved : {unresolved_issues_count}")
         
+        # For tenants, just get unread messages
         else:
             unread_messages_count = Message.objects.filter(recipient=request.user).filter(read=False).count()
             unresolved_issues_count = 0
@@ -525,6 +590,8 @@ def logout_view(request):
 
 def register(request):
     if request.method == "POST":
+
+        # Get info from registration form
         username = request.POST["username"]
         email = request.POST["email"]
         first_name = request.POST["first_name"]
@@ -532,7 +599,8 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         user_type = request.POST["user_type"]
-        print(user_type)
+
+        # Assign user type
         if user_type == "tenant":
             tenant = True
             manager = False
@@ -540,6 +608,7 @@ def register(request):
             tenant = False
             manager = True
         
+        # Ensure no fields are blank
         if username == "" or first_name == "" or last_name == "" or email == "" or password == "":
             return render(request, "property/register.html", {
                 "message": "Must enter username, email, full name, and password."
@@ -558,8 +627,12 @@ def register(request):
             user.manager = manager
             user.first_name = first_name
             user.last_name = last_name
-            
-            user.save()
+            if user.is_valid_user():
+                user.save()
+            else:
+                return render(request, "property/register.html", {
+                    "message": "Invalid user. Try again"
+                })
         except IntegrityError:
             return render(request, "property/register.html", {
                 "message": "Username already taken."
