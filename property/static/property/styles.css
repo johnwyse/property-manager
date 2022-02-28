@@ -218,12 +218,14 @@ h1 {
 #flex-container {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
+    margin: auto;
+    vertical-align: top;
 }
 
 .flex-child {
-    display: flex;
-    width: 40vw;
-    min-width: 400px;
+    width: 45vw;
+    min-width: 500px;
     margin: justify;
     vertical-align: top;
     margin-top: 1rem;
