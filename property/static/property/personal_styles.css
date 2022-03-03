@@ -2,7 +2,7 @@
     --main: rgb(9, 8, 65);
   }
 
-  body {
+body {
     background-color: seashell;
     color: var(--main);
     text-align: center;
