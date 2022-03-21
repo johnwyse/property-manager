@@ -142,7 +142,7 @@ These views are edited from previous CS50W login and authentication distribution
 Users can edit issues as updates are needed. An API updates the issues description via PUT.
 
 #### delete_message
-Users can delete their own messages. Javascript starts a sliding animation after the API call.
+Users can delete their own messages (API via DELETE). Javascript starts a sliding animation after the API call.
 
 #### mark_as_read
 When a user loads a message thread, all of their received messages are marked as read via PUT when the DOM is loaded.
@@ -209,6 +209,6 @@ Complexity:
 - More editing, adding, deleting features: The app could be improved if lease documents, images, messages, units, tenants, etc could be edited, added or deleted (ie when a new tenant moves into a unit).
 - Urgency levels for issues: Sorting unresolved issues by urgency could improve user experience.
 - Google Maps API: Units could pull an image using the Google Maps API.
-- More specific error page messages.
+- Get rid of Null image fields by creating new MessageImage and IssueImage tables.
 
 [Back to Top](#property)
