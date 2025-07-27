@@ -14,8 +14,8 @@
         <p>This unit does not have a registered tenant.</p>
         {% endif %}
 
-        {% if unit.image %}
-        <img src="{{ unit.image.url }}" alt="{{ unit.address }}" height=200>
+        {% if unit.image_base64 %}
+        <img src="data:image/jpeg;base64,{{ unit.image_base64 }}" alt="{{ unit.address }}" height=200>
         {% endif %}
         {% if unit.lease %}
         <br><br>
