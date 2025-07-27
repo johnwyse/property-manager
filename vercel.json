@@ -11,8 +11,5 @@
     { "src": "/static/(.*)", "dest": "/staticfiles/$1" },
     { "src": "/media/(.*)", "dest": "/media/$1" },
     { "src": "/(.*)", "dest": "/capstone/wsgi.py" }
-  ],
-  "env": {
-    "DEBUG": "False"
-  }
+  ]
 }
