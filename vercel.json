@@ -11,5 +11,10 @@
     { "src": "/property/static/(.*)", "dest": "/static/$1" },
     { "src": "/media/(.*)", "dest": "/media/$1" },
     { "src": "/(.*)", "dest": "/capstone/wsgi.py" }
-  ]
+  ],
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "SECRET_KEY": "@secret_key",
+    "DEBUG": "False"
+  }
 }
