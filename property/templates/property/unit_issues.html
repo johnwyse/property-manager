@@ -77,9 +77,9 @@
                         </div>
                         {% endif %}
                         
-                        {% if issue.image %} 
+                        {% if issue.image_base64 %} 
                         <div class="issue_image">
-                            <img src="{{ issue.image.url }}" alt="{{ issue.title }}" height=200>
+                            <img src="data:image/jpeg;base64,{{ issue.image_base64 }}" alt="{{ issue.title }}" height=200>
                             <br><br>
                         </div>
                         {% endif %}
@@ -105,9 +105,9 @@
                         <p>Originally Reported: {{issue.time_created}}</p>
                         <p>Description:<br>{{issue.description|linebreaksbr}}</p>
 
-                        {% if issue.image %} 
+                        {% if issue.image_base64 %} 
                         <div class="issue_image">
-                            <img src="{{ issue.image.url }}" alt="{{ issue.title }}" height=200>
+                            <img src="data:image/jpeg;base64,{{ issue.image_base64 }}" alt="{{ issue.title }}" height=200>
                             <br><br>
                         </div>
                         {% endif %}

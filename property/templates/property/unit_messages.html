@@ -38,9 +38,9 @@
             {% endif %}
             <p>{{ message.timestamp }}</p>
             <p class="message-text">{{ message.text }}</p>
-            {% if message.image %}
+            {% if message.image_base64 %}
             <div class="message_image">
-                <img src="{{ message.image.url }}" alt="{{ message.title }}">
+                <img src="data:image/jpeg;base64,{{ message.image_base64 }}" alt="{{ message.title }}">
             </div>
             {% endif %}
         </div>           

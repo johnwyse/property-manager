@@ -8,9 +8,9 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
-from django.core.exceptions import ObjectDoesNotExist
 
-from .models import User, Issue, Message, Unit
+from .models import User, Message, Unit, Issue, image_to_base64, file_to_base64
+from django.core.exceptions import ObjectDoesNotExist
 
 def index(request):
     if request.user.is_authenticated:
@@ -87,25 +87,25 @@ def change_resolved(request, issue_id):
 def add_property(request):
     if request.method =="POST":
         
-        # Look for image
+        # Look for image and convert to base64
+        image_base64 = None
         if 'image' in request.FILES:
-            image = request.FILES["image"]
-        else:
-            image = None
+            image_file = request.FILES["image"]
+            image_base64 = image_to_base64(image_file)
 
-        # Look for lease
+        # Look for lease and convert to base64
+        lease_base64 = None
         if 'lease' in request.FILES:
-            lease = request.FILES["lease"]
-        else:
-            lease = None
+            lease_file = request.FILES["lease"]
+            lease_base64 = file_to_base64(lease_file)
         
         # Try to save new unit
         try:
             u = Unit(
                 manager = User.objects.get(username=request.user),
                 address = request.POST["address"],
-                image = image,
-                lease = lease
+                image_base64 = image_base64,
+                lease_base64 = lease_base64
             )
         except ValueError:
             return render(request, "property/add_property.html", {
@@ -132,18 +132,18 @@ def report_issue(request):
     if request.method =="POST":
         reporter = User.objects.get(username=request.user)
         
-        # Look for an image
+        # Look for an image and convert to base64
+        image_base64 = None
         if 'image' in request.FILES:
-            image = request.FILES["image"]
-        else:
-            image = None
+            image_file = request.FILES["image"]
+            image_base64 = image_to_base64(image_file)
         
         # Try to save issue
         try:
             i = Issue(
                 unit_id = Unit.objects.get(tenant=reporter),
                 title = request.POST["title"],
-                image = image,
+                image_base64 = image_base64,
                 description = request.POST["description"]
             )
         except ValueError:
@@ -164,16 +164,16 @@ def send_message(request):
         if request.user.tenant == True:
             my_unit = Unit.objects.get(tenant=request.user)
             
-            # Look for image
+            # Look for image and convert to base64
+            image_base64 = None
             if 'image' in request.FILES:
-                image = request.FILES["image"]
-            else:
-                image = None
+                image_file = request.FILES["image"]
+                image_base64 = image_to_base64(image_file)
             
             # Try to save message
             try:
                 m = Message(
-                    image = image,
+                    image_base64 = image_base64,
                     sender = User.objects.get(username=request.user),
                     recipient = User.objects.get(username=my_unit.manager),
                     text = request.POST["text"]
@@ -194,18 +194,18 @@ def send_message(request):
             # if manager is sending to tenant
             unit = Unit.objects.get(tenant=request.POST["tenant"])
             
-            # Look for image
+            # Look for image and convert to base64
+            image_base64 = None
             if 'image' in request.FILES:
-                image = request.FILES["image"]
-            else:
-                image = None
+                image_file = request.FILES["image"]
+                image_base64 = image_to_base64(image_file)
             
             # Try to save message
             try:
                 m = Message(
                     sender = User.objects.get(username=request.user),
                     recipient = User.objects.get(username=User.objects.get(id=request.POST["tenant"])),
-                    image = image,
+                    image_base64 = image_base64,
                     text = request.POST["text"],
                 )
             except ValueError:

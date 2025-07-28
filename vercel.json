@@ -4,15 +4,15 @@
     {
       "src": "capstone/wsgi.py",
       "use": "@vercel/python",
-      "config": { "maxLambdaSize": "50mb" }
+      "config": { 
+        "maxLambdaSize": "50mb",
+        "installCommand": "pip install -r requirements.txt && python manage.py migrate --noinput && python manage.py collectstatic --noinput"
+      }
     }
   ],
   "routes": [
-    { "src": "/property/static/(.*)", "dest": "/static/$1" },
+    { "src": "property/static/(.*)", "dest": "/staticfiles/$1" },
     { "src": "/media/(.*)", "dest": "/media/$1" },
     { "src": "/(.*)", "dest": "/capstone/wsgi.py" }
-  ],
-  "env": {
-    "DEBUG": "False"
-  }
+  ]
 }
