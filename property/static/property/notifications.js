@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    fetch('/property/get_notifications')
+    fetch('/get_notifications')
     .then(response => response.json())
     .then(data => {
         
