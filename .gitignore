@@ -4,6 +4,7 @@ __pycache__/
 *venv/
 static/
 staticfiles/
+property/staticfiles/
 property/static/admin/
 property/static/django_extensions/
 
