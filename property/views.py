@@ -1,4 +1,5 @@
 import json
+import base64
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import JsonResponse
@@ -637,5 +638,34 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "property/register.html")
+
+
+@login_required
+def download_lease(request, unit_id):
+    """Download lease PDF from base64 data"""
+    try:
+        unit = Unit.objects.get(id=unit_id)
+        
+        # Check permissions - only manager or tenant can download
+        if request.user != unit.manager and request.user != unit.tenant:
+            return HttpResponse("Unauthorized", status=403)
+        
+        if not unit.lease_base64:
+            return HttpResponse("No lease document available", status=404)
+        
+        # Decode base64 data
+        pdf_data = base64.b64decode(unit.lease_base64)
+        
+        # Create HTTP response with PDF
+        response = HttpResponse(pdf_data, content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="lease_{unit.address.replace(" ", "_")}.pdf"'
+        response['Content-Length'] = len(pdf_data)
+        
+        return response
+        
+    except Unit.DoesNotExist:
+        return HttpResponse("Unit not found", status=404)
+    except Exception as e:
+        return HttpResponse(f"Error downloading lease: {str(e)}", status=500)
 
 

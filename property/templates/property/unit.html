@@ -19,7 +19,7 @@
         {% endif %}
         {% if unit.lease_base64 %}
         <br><br>
-        <p>View the lease document <a href="data:application/pdf;base64,{{ unit.lease_base64 }}" target="_blank" rel="noopener noreferrer" download="lease.pdf">here</a>.</p>
+        <p>View the lease document <a href="{% url 'download_lease' unit.id %}" target="_blank" rel="noopener noreferrer">here</a>.</p>
         {% endif %}
 
     </div>
