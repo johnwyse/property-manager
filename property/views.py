@@ -653,12 +653,25 @@ def download_lease(request, unit_id):
         if not unit.lease_base64:
             return HttpResponse("No lease document available", status=404)
         
+        # Handle both string (base64) and dict formats
+        if isinstance(unit.lease_base64, dict):
+            base64_data = unit.lease_base64.get('data', '')
+            filename = unit.lease_base64.get('filename', f"lease_{unit.address.replace(' ', '_')}.pdf")
+        elif isinstance(unit.lease_base64, str):
+            base64_data = unit.lease_base64
+            filename = f"lease_{unit.address.replace(' ', '_')}.pdf"
+        else:
+            return HttpResponse(f"Invalid lease data format: {type(unit.lease_base64)}", status=500)
+        
+        if not base64_data:
+            return HttpResponse("No lease data available", status=404)
+        
         # Decode base64 data
-        pdf_data = base64.b64decode(unit.lease_base64)
+        pdf_data = base64.b64decode(base64_data)
         
         # Create HTTP response with PDF
         response = HttpResponse(pdf_data, content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="lease_{unit.address.replace(" ", "_")}.pdf"'
+        response['Content-Disposition'] = f'attachment; filename="{filename}"'
         response['Content-Length'] = len(pdf_data)
         
         return response
