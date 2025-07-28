@@ -29,12 +29,12 @@
     <div id="message_{{message.id}}" class="listed-item-messages-{{message.sender.tenant}}">
 
         <div class="message_contents">
-            {% if message.sender.profile_picture and message.sender.tenant %}
-                <img src="{{ message.sender.profile_picture.url }}" alt="{{ message.sender }}" height=50>
+            {% if message.sender.profile_picture_base64 and message.sender.tenant %}
+                <img src="data:image/jpeg;base64,{{ message.sender.profile_picture_base64 }}" alt="{{ message.sender }}" height=50>
             {% endif %}
             {{ message.sender.first_name }} {{ message.sender.last_name }} 
-            {% if message.sender.profile_picture and message.sender.manager %}
-                <img src="{{ message.sender.profile_picture.url }}" alt="{{ message.sender }}" height=50>
+            {% if message.sender.profile_picture_base64 and message.sender.manager %}
+                <img src="data:image/jpeg;base64,{{ message.sender.profile_picture_base64 }}" alt="{{ message.sender }}" height=50>
             {% endif %}
             <p>{{ message.timestamp }}</p>
             <p class="message-text">{{ message.text }}</p>

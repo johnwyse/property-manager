@@ -226,12 +226,14 @@ def send_message(request):
 @login_required
 def add_profile_picture(request):
     if request.method == "POST":
+        # Convert profile picture to base64
+        profile_picture_base64 = None
         if 'image' in request.FILES:
-            profile_picture = request.FILES["image"]
-        else:
-            profile_picture = None
+            image_file = request.FILES["image"]
+            profile_picture_base64 = image_to_base64(image_file)
+        
         user = User.objects.get(username=request.user)
-        user.profile_picture = profile_picture
+        user.profile_picture_base64 = profile_picture_base64
         user.save()
         return HttpResponseRedirect(reverse("profile"))
     else:
