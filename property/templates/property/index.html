@@ -16,7 +16,7 @@
             {% endif %}
             {% if my_unit.lease_base64 %}
             <br><br>
-            <p>View the lease document <a href="data:application/pdf;base64,{{ my_unit.lease_base64 }}" target="_blank" rel="noopener noreferrer" download="lease.pdf">here</a>.</p>
+            <p>View the lease document <a href="{% url 'download_lease' my_unit.id %}" target="_blank" rel="noopener noreferrer">here</a>.</p>
             {% endif %}
         </div>
 
@@ -33,7 +33,7 @@
                             <textarea class="issue_input" id="issue_description" name="description" autocomplete=off type=text placeholder="Description" rows=4 cols=80></textarea>
                             <label for="image">Image (optional)</label>
                             <br>
-                            <input id="add_image" name="image" type="file">
+                            <input id="add_image" name="image" type="file" accept="image/*">
                             <br><br>
                         </div>
                         <input class="btn btn-warning" type="submit" value="Submit Issue">
@@ -52,7 +52,7 @@
                             <br>
                             <label for="image">Image (optional)</label>
                             <br>
-                            <input id="add_image" name="image" type="file">
+                            <input id="add_image" name="image" type="file" accept="image/*">
                             <br><br>
                         </div>
                         <input class="btn btn-warning" type="submit" value="Send Message">

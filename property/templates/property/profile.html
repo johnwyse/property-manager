@@ -10,8 +10,8 @@
     <div id="flex-container">
         <div class="flex-child">
             <div id="profile_picture">
-                {% if user.profile_picture %}
-                <img src="{{ user.profile_picture.url }}" alt="{{ user }}" width=50%>
+                {% if user.profile_picture_base64 %}
+                <img src="data:image/jpeg;base64,{{ user.profile_picture_base64 }}" alt="{{ user }}" width=50%>
                 <br><br>
                 {% endif %}
             </div>
@@ -21,7 +21,7 @@
                     <div class="upload_form">
                         <label for="image">Add/Update Profile Picture</label>
                         <br>
-                        <input id="add_image" name="image" type="file">
+                        <input id="add_image" name="image" type="file" accept="image/*">
                         <br><br>
                     </div>
                     <input class="btn btn-warning" type="submit" value="Add/Update">
