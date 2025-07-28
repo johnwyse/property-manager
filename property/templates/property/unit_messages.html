@@ -16,7 +16,7 @@
                 <br><br>
                 <label for="image">Image (optional)</label>
                 <br>
-                <input id="add_image" name="image" type="file">
+                <input id="add_image" name="image" type="file" accept="image/*">
                 {% if user.manager %}
                 <input id="tenant_recipient" name="tenant" type=hidden value="{{unit.tenant.id}}"> 
                 {% endif %}
